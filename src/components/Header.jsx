@@ -17,28 +17,37 @@ return(
     </section>
 
 {/* dynamic scrolling of rates */}
-    <div className="relative w-full bg-black/40 h-10  ">
-        <div className=" border border-green-500 w-full h-10 overflow-hidden z-20 " >
-          <ul className="flex w-max whitespace-nowrap  ">
-
-          {changeRate.map((item, index) => (
-          <li key={item.currency + index}    className="flex  border items-center shrink-0 px-6 h-10"> 
-          <span className="w-60">
-          {base} /
- 
-          <span>
-          {item.currency}
-          </span>
-
-          </span> 
-         </li>
-
-          ))}
+    {/* container */}
+    <section className="relative w-full h-10 bg-black  ">
+        {/* holding the xchange rates ul */}
+        <div className=" w-full overflow-hidden z-20 ">
+          <ul className="w-max whitespace-nowrap flex animate-scroll font-JetBrains-Mono ">
+            {changeRate.map((item , index) => (
+            <li key={item.currency + index} className="flex  border-2 border-r-gray-600 items-center shrink-0 px-6 h-10">
+            <span className="flex flex-row gap-4 text-white/60">
+            <span>
+            {base} /
+            <span>
+            {item.currency} 
+            </span>
+            </span>
+            <span className="text-white font-bold flex gap-2 ">
+            {item.rate} 
+            <span className="text-green-700">{item.change}</span>
+            </span>
+            </span>
+            </li>
+            
+            ))}
+          
+          </ul>
         
-        </ul>
+        
+        
         
         </div>
-
+    
+    
     
       <div className="absolute top-0 left-0  flex flex-row items-center  border bg-PrimaryNeon font-JetBrains-Mono h-10 w-35 p-2 justify-center  z-40">
       <span className="text-3xl">·</span>
@@ -46,7 +55,12 @@ return(
       </div>
     
     
-    </div>
+
+    
+    </section>
+
+    
+    
 
 
 
@@ -66,4 +80,8 @@ export default ERHeader
 
         // after we get the rates from yesterday and today 
 
+        // animation-scroll
+
         //  so we need to check currency for all like PHP/USD rates / for all 29 countries
+
+
