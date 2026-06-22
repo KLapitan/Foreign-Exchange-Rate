@@ -8,4 +8,21 @@
   --font-JetBrains-Mono: "JetBrains Mono", monospace;
   --color-PrimaryNeon: #cef737;
 
+
+  --animate-scroll: scroll 40s linear infinite;
+
+  /* instead of creating a tailwind.config.js  */
+  /* we directly used it here */
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0)
+    }
+
+    to {
+      transform: translateX(-50%)
+    }
+
+  }
+
 }
