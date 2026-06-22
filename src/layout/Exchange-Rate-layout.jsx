@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import ERHeader from "../components/Header"
+import ERHero from "../components/Hero"
 
 import axios from "axios"
 import { useState } from "react"
@@ -105,7 +106,7 @@ console.log(baseRate , "country base rate")
 return(
 <>
 <ERHeader  rates={rates} base={baseRate}  changeRate={loopedRates}/>
-
+<ERHero/>
 
 </>
 )
