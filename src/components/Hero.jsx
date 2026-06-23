@@ -1,3 +1,5 @@
+import FXInput from "./input"
+
 const ERHero = () => {
 
 
@@ -34,7 +36,7 @@ return(
               <span className="text-white/60 text-lg font-bold ">RECEIVE</span>
 
               <div className="w-auto">
-                <input type="number" className="border border-white w-auto h-20 text-white" />
+              
               
               </div>
           

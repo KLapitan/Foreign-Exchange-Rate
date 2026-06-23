@@ -26,7 +26,7 @@ useEffect(() => {
   try {
   // base was USD
 
-  const baseURL =import.meta.env.VITE_FXRATE_API
+  const baseURL =import.meta.env.VITE_FXCHECKER_API
 
   // today's rate 
   const todayRates = await axios.get(baseURL);
