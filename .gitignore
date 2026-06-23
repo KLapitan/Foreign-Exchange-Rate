@@ -15,7 +15,7 @@ dist-ssr
 .env
 .env*
 foreign-exchange-checker/
-README2.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
