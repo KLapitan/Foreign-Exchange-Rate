@@ -14,9 +14,9 @@ const [rates,setRates]=useState([])
 // state for the diffrence rates that we check from yesterday and todays rates
 const [isChangeRates,setIsChangeRates]=useState([])
 
-const loopedRates = [...isChangeRates, ...isChangeRates];
+const duplicateRates = isChangeRates.length ? [...isChangeRates, ...isChangeRates] : [];
 
-const [baseRate,setBaseRate]=useState(null)
+// const [baseRate,setBaseRate]=useState(null)
 
 
 useEffect(() => {
@@ -25,11 +25,13 @@ useEffect(() => {
 
   try {
   // base was USD
-
-  const baseURL =import.meta.env.VITE_FXCHECKER_API
+  const base = "USD"
+  const baseURL = import.meta.env.VITE_FXCHECKER_API
 
   // today's rate 
-  const todayRates = await axios.get(baseURL);
+  const todayRates = await axios.get(baseURL , {
+  params: {base }
+  });
   
   // get todays day monday june 22 
   const yesterday = new Date(); 
@@ -44,30 +46,103 @@ useEffect(() => {
 
   //  weget historical endpoint for USD in yesterday ddate  
 
-  const yesterdayRates = await axios.get(`https://api.frankfurter.dev/v1/${dateStr}?base=USD`)
-
-
-  const todayRes = todayRates.data.rates;
-  const yesterdayRes = yesterdayRates.data.rates;
-
-  const mergedRates = Object.keys(todayRes).map((currency) => {
-  //we get the rates from today  (e.g  PHP - 60.111) todays 60.111 
-    const today = todayRes[currency]
-    // we get the yesterdayrate (e.g PHP - 60.002) yesterday 60.0222
-    const yesterdayRate =yesterdayRes[currency]
-  
-      const change = ((today - yesterdayRate) / yesterdayRate) * 100
-
-    return {
-    currency,
-    rate:today,
-    change:change.toFixed(2)
-    
-    }
-
+  const yesterdayRates = await axios.get(baseURL , {
+  params :{base , date:dateStr}
   })
 
-  console.log(mergedRates, "merge rates")
+// because it is in array form insteadof accessing them item[0-100] we iterate it and turn into an objects
+  const todayRes = todayRates.data.map((item) => {
+      const baseRate=item.base
+      const todaysRate = item.rate;
+      const todaysCurrency = item.quote
+      
+
+      return {
+      base:baseRate,
+      currency:todaysCurrency,
+      rate:todaysRate
+      }  
+  });
+  // const yesterdayRes = yesterdayRates.data?.rates; v1
+  // check yesterday Rates v2
+    const yesterdayRes = yesterdayRates.data.map((item) => {
+    const baseRate=item.base;
+    const yesterdaysCurrency =item.quote;
+    const yesterdaysRate = item.rate;
+    const yesterdaysDay = item.date;
+    
+
+    return {
+     base:baseRate,
+     currency:yesterdaysCurrency,
+      date:yesterdaysDay,
+      rate:yesterdaysRate
+    
+    }})
+
+
+  console.log(yesterdayRes , "yesterday v2 rate")
+
+  console.log( todayRes, "today v2 rate")
+  console.log( typeof todayRes)
+
+// merged rates to check up and down time
+
+const mergedRates = todayRes.map((todayRateItem) => {
+const yesterdayRateItem = yesterdayRes.find((item) => 
+item.currency === todayRateItem.currency
+) 
+if(!yesterdayRateItem){
+
+return{
+ base:todayRateItem.base,
+currency:todayRateItem.currency,
+rate:todayRateItem.rate,
+change:null,
+}
+
+}
+
+
+
+// console.log( todayRateItem.currency,
+//   yesterdayRateItem)
+
+const change = ((todayRateItem.rate - yesterdayRateItem.rate ) /yesterdayRateItem.rate ) * 100
+
+return {
+ base:todayRateItem.base,
+currency:todayRateItem.currency,
+rate:todayRateItem.rate,
+change:change.toFixed(2)
+
+}
+
+})
+
+
+console.log(todayRes.base,"v2 country based")
+console.log(mergedRates, "merge v2 rates")
+
+
+  // const mergedRates = todayRes.map((currency) => {
+  //we get the rates from today  (e.g  PHP - 60.111) todays 60.111 
+    // const today = todayRes[currency]
+    // we get the yesterdayrate (e.g PHP - 60.002) yesterday 60.0222
+    // const yesterdayRate =yesterdayRes[currency]
+  
+    //   const change = ((today - yesterdayRate) / yesterdayRate) * 100
+
+    // return {
+    // currency,
+    // rate:today,
+    // change:change.toFixed(2)
+    
+  //    }
+
+  // })
+
+  // console.log(mergedRates, "merge rates")
 
 
 
@@ -84,7 +159,7 @@ useEffect(() => {
 
 
 setIsChangeRates(mergedRates)
-setBaseRate(todayRates.data.base)
+
   setRates(todayRes)
   
 
@@ -99,13 +174,13 @@ setBaseRate(todayRates.data.base)
 
 },[])
 
-console.log(isChangeRates)
-console.log(baseRate , "country base rate")
+console.log(isChangeRates, "for loop")
+
 
 
 return(
 <>
-<ERHeader  rates={rates} base={baseRate}  changeRate={loopedRates}/>
+<ERHeader  rates={rates}   slidingRate={duplicateRates}/>
 <ERHero/>
 
 </>

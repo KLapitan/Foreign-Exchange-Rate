@@ -1,4 +1,4 @@
-const ERHeader = ({rates , base, changeRate}) => {
+const ERHeader = ({rates , slidingRate}) => {
 
 return(
 <header className="h-auto">
@@ -9,7 +9,7 @@ return(
     </picture>
 
     <div className="w-auto font-JetBrains-Mono font-light">
-      <span className="text-white/70 text-xs sm:text-md">{Object.keys(rates).length} CURRENCIES · </span>
+      <span className="text-white/70 text-xs sm:text-md">{rates.length} CURRENCIES · </span>
       <span className="text-white/70 text-xs sm:text-md">EOD · </span>
       <span className="text-white/70 text-xs sm:text-md">ECB DATA  </span>
     
@@ -22,18 +22,18 @@ return(
         {/* holding the xchange rates ul */}
         <div className=" w-full overflow-hidden z-20 ">
           <ul className="w-max whitespace-nowrap flex animate-scroll font-JetBrains-Mono ">
-            {changeRate.map((item , index) => (
+            {slidingRate.map((item ,index) => (
             <li key={item.currency + index} className="flex  border-2 border-r-gray-600 items-center shrink-0 px-6 h-10">
             <span className="flex flex-row gap-4 text-white/60">
             <span>
-            {base} /
+            {item.base} /
             <span>
             {item.currency} 
             </span>
             </span>
             <span className="text-white font-bold flex gap-2 ">
             {item.rate} 
-            <span className="text-green-700">{item.change}</span>
+            <span className={`${item.change > 0 ? "text-green-500":"text-red-700"}`}>{item.change}</span>
             </span>
             </span>
             </li>

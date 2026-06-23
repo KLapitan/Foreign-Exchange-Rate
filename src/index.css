@@ -6,10 +6,18 @@
 
 @theme {
   --font-JetBrains-Mono: "JetBrains Mono", monospace;
+
   --color-PrimaryNeon: #cef737;
 
+  /* container of converter */
+  --color-BlackLight: #171719;
 
-  --animate-scroll: scroll 40s linear infinite;
+  /* sned recive /background */
+  --color-BlackSR: #202022;
+
+
+
+  --animate-scroll: scroll 2000s linear infinite;
 
   /* instead of creating a tailwind.config.js  */
   /* we directly used it here */

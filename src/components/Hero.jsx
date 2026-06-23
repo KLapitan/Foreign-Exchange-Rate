@@ -9,14 +9,17 @@ return(
       <h2 className=" text-white font-bold text-lg">CHECK THE RATE</h2>
 
 {/* container for 2 currency change checker */}
-        <div className=" h-auto rounded-md flex flex-col gap-5 items-center p-2">
+        <div className=" h-auto  flex flex-col gap-5 items-center p-2 bg-BlackLight rounded-lg border border-amber-600">
 
         {/* send container */}
-          <div className="bg-black/20 h-35 w-full flex flex-col p-2 rounded-md border border-white  gap-10">
+          <div className="bg-BlackSR h-35 w-full flex flex-col p-2 rounded-md border border-green-400  gap-4 ">
               <span className="text-white/60 text-lg font-bold ">SEND</span>
 
               <div className="w-auto">
-                <input type="number" className="border border-white w-auto h-10 text-white" />
+                <FXInput/>
+
+                {/* dropdown */}
+                
               
               </div>
           
@@ -32,7 +35,7 @@ return(
 
 
           {/* receive */}
-          <div className="bg-black/20 h-35 w-full p-2 rounded-md border border-white ">
+          <div className="bg-BlackSR h-35 w-full p-2 rounded-md border border-white ">
               <span className="text-white/60 text-lg font-bold ">RECEIVE</span>
 
               <div className="w-auto">
