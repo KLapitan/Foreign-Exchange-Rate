@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 import ERHeader from "../components/Header"
 import ERHero from "../components/Hero"
+// import { test } from "../components/currency-conversion"
+
 
 import axios from "axios"
 import { useState } from "react"
@@ -25,7 +27,7 @@ useEffect(() => {
 
   try {
   // base was USD
-  const base = "USD"
+  const base = import.meta.env.VITE_FXCHECKER_BASE
   const baseURL = import.meta.env.VITE_FXCHECKER_API
 
   // today's rate 
@@ -175,6 +177,25 @@ setIsChangeRates(mergedRates)
 },[])
 
 console.log(isChangeRates, "for loop")
+
+
+
+// CONVERT CHECKER
+
+// useEffect(() => {
+// const convertFetch  = async() => {
+// await test() ;
+
+
+// }
+// convertFetch()
+
+// },[])
+
+
+
+
+
 
 
 
