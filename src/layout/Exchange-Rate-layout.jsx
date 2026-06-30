@@ -202,7 +202,7 @@ console.log(isChangeRates, "for loop")
 return(
 <>
 <ERHeader  rates={rates}   slidingRate={duplicateRates}/>
-<ERHero/>
+<ERHero />
 
 </>
 )
