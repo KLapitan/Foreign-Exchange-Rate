@@ -4,6 +4,8 @@ import FXInput from "./input"
 import Dropdown from "./dropdown-currency"
 import convert from "./currency-conversion";
 
+import HistoryFavoritedLogConversion from "./history-favorite-logconversion";
+
 
 
 
@@ -165,6 +167,80 @@ singleRateChecker()
 console.log(singleRateCurrency , "rate of single")
 
 
+
+// history/favorite/LogCOnversion
+
+const [tools,setTools]=useState("history")
+
+const handleTools = (e) => {
+setTools(e.target.value)
+}
+
+// favorite/favorited
+// why array ? becausew we want to the valueos of slected currecy and show it in ui
+
+
+
+const [favoriteList,setFavoriteList]=useState([])
+
+// we change from  checking by flag to finding it inside the array so it will accurate in displaying
+const isFavorite = favoriteList.some((item) => item.from === fromSelectedCurrency.value && item.to === toSelectedCurrency.value)
+
+// handlerEvent for Button favorited
+
+
+
+const handleFavorite =() => {
+
+
+
+
+const saveCurrentCurrency = {
+  id:crypto.randomUUID(),
+  fromFlag:fromSelectedCurrency.flag,
+  from:fromSelectedCurrency.value,
+  to:toSelectedCurrency.value,
+  toFlag:toSelectedCurrency.flag,
+  amount,
+  convertedAmount
+}
+
+setFavoriteList((prev) => [...prev,saveCurrentCurrency])
+
+const saveComparisonValue = {
+  id:crypto.randomUUID(),
+  to:toSelectedCurrency.value,
+  convertedAmount,
+
+}
+
+  setCompareResults((prev) => [...prev, saveComparisonValue])
+
+}
+
+
+
+
+// compare 
+const [compareResults,setCompareResults]=useState([])
+
+// base currency that will be compared to
+const isBaseComparison = favoriteList.find((item) =>item.from === fromSelectedCurrency.value)
+
+
+// list of the base needed to be compared to
+
+
+
+
+
+// console.log(compareResults , "COMPARASION LISTS")
+
+
+console.log(favoriteList)
+
+
+
 return(
 <main className="h-auto bg-black">
     <section className="h-auto max-w-6xl  w-full p-3 font-JetBrains-Mono border-white border ">
@@ -232,7 +308,7 @@ return(
 
                   {/*favorite log conversion  */}
                   <div className="font-JetBrains-Mono flex flex-row gap-2 items-center justify-center">
-                  <button className="bg-PrimaryNeon text-black text-xs px-3 py-2  font-bold flex flex-row items-center justify-center gap-1 rounded-md hover:bg-PrimaryNeon/80 cursor-pointer"><img src="/images/icon-star-black.svg" className="w-4 h-4"/>FAVORITED</button>
+                  <button className="bg-PrimaryNeon text-black text-xs px-3 py-2  font-bold flex flex-row items-center justify-center gap-1 rounded-md hover:bg-PrimaryNeon/80 cursor-pointer" onClick={handleFavorite}><img src="/images/icon-star-black.svg" className="w-4 h-4" />{isFavorite ? "FAVORITED" :"FAVORITE"}</button>
                   <button className="border border-PrimaryNeon text-center text-white px-2 text-xs py-2 rounded-md active:bg-PrimaryNeon active:text-black font-semibold cursor-pointer tracking-normal">LOG CONVERSION</button>
                   
                   </div>
@@ -240,6 +316,12 @@ return(
 
 
         </div>
+
+
+          {/* favorite/favorited /log conversion */}
+         <HistoryFavoritedLogConversion tools={tools} onChangeTools={handleTools} favoriteList={favoriteList} isBaseComparison={isBaseComparison} compareResults={compareResults} singleRate={singleRateCurrency}/>
+
+
 
 
     </section>
@@ -675,3 +757,63 @@ export default ERHero
 // If the data I have does not match what the API expects, the request will fail.
 
 
+
+
+//  Favorite/Favorited / log conversion 
+
+// favorite /Favorited
+
+// favorite when it unpinned and favorited if pinned 
+
+//questions
+
+// where do we get the data?
+
+//  from the  From/toSelectedCurrency state and the amount/convertedamount state
+
+// from the currency convert what do we need to show on the favorite state
+
+// currency ? or  currency with values
+
+// state fromSelected/toSelected currency / state fromSelected/toSelected currency and amount/convertedamout state 
+
+// check if the user want this currency selection to favorite/favorited 
+
+
+//favorite/favorited state
+
+// display the data that comes from the fromSelected/toSelectedCurrency dropdownState and for values is Amount,convertedAMount State
+
+// we created an handlerEvent that will handle when the use favorite the current currencychecker
+
+//  first is we get the value of current by formSelected and toselectedCurreny and 
+
+// second we created a variable and save it as and object to create new object consisting the value we get form currenct state of currency
+
+// const setFavorite = {
+    // currencyBase:fromSelectedCurrency.value,
+    // currencyto:toSelectedCurrency.value,
+
+// }
+
+// and save it to our created state array FavoriteList
+
+
+// compare 
+
+// list of toSelectedValue that was added to favorite and show the value of 1000 in the toslected currecny
+
+
+// compare the user input value from different type of currency and  display it
+
+// example 1000 PHP compare it to USD <EURO ,JAPAN ...etc
+
+
+// where will the data will be comming through? 
+
+//  so we created an array for favorite we can used it so the favorite one and compare has same value 
+
+// but the data will be shown is only ToSelectedValue. because we are comparing it  but the value of the header will be th fromselected because it is the one we have the value and show what we compare
+
+
+//  do we need a state so it will show the ones we added to compile them for our base currency
