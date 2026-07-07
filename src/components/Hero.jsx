@@ -4,7 +4,7 @@ import FXInput from "./input"
 import Dropdown from "./dropdown-currency"
 import convert from "./currency-conversion";
 
-import HistoryFavoritedLogConversion from "./history-favorite-logconversion";
+import Tools from "./tools";
 
 
 
@@ -128,29 +128,35 @@ setToSelectedCurrency(tempValue)
 
 // state of the singleRate
 
-const [singleRateCurrency,setSingleRateCurrency]=useState([])
-
+const [singleRateCurrency,setSingleRateCurrency]=useState({})
 // check the single currency for the used conversion
 useEffect(() => {
 const singleRateChecker = async () =>{
 
 const baseCurrency = fromSelectedCurrency.value ;
 const singleRateURL = import.meta.env.VITE_SINGLERATECHECKER_API;
-
 const targetCurrency = toSelectedCurrency.value;
 
 
 try {
-
 // path parameters
 const  formattedRateURL =`${singleRateURL}/${baseCurrency}/${targetCurrency}`;
-
-
 const response = await axios.get(formattedRateURL);
 
+const data =response.data
 
+// TODO . We need to show the single rate in favorites and when  it change it the rate from the other one will not change
 
- setSingleRateCurrency(response.data)
+// we formatte the rate because when want to get rate to be seen in favorite it all change
+// const formattedSingleRate = {
+//   base: data.base,
+//   rate: data.rate,
+//   quote: data.quote,
+//   date: data.date,
+// };
+
+  setSingleRateCurrency(data) 
+
 }catch (error){
 console.error("Error in fetching data currency rate" ,error)
 
@@ -159,9 +165,6 @@ console.error("Error in fetching data currency rate" ,error)
 }
 
 singleRateChecker()
-
-
-
 },[fromSelectedCurrency, toSelectedCurrency])
 
 console.log(singleRateCurrency , "rate of single")
@@ -178,10 +181,12 @@ setTools(e.target.value)
 
 // favorite/favorited
 // why array ? becausew we want to the valueos of slected currecy and show it in ui
-
-
-
 const [favoriteList,setFavoriteList]=useState([])
+
+// if nothing yet saved
+
+const [favoriteContent,setFavoriteContent]=useState(false)
+
 
 // we change from  checking by flag to finding it inside the array so it will accurate in displaying
 const isFavorite = favoriteList.some((item) => item.from === fromSelectedCurrency.value && item.to === toSelectedCurrency.value)
@@ -191,10 +196,6 @@ const isFavorite = favoriteList.some((item) => item.from === fromSelectedCurrenc
 
 
 const handleFavorite =() => {
-
-
-
-
 const saveCurrentCurrency = {
   id:crypto.randomUUID(),
   fromFlag:fromSelectedCurrency.flag,
@@ -202,10 +203,16 @@ const saveCurrentCurrency = {
   to:toSelectedCurrency.value,
   toFlag:toSelectedCurrency.flag,
   amount,
-  convertedAmount
+  convertedAmount,
+  rate: singleRateCurrency.rate,
+ 
+
+
 }
 
 setFavoriteList((prev) => [...prev,saveCurrentCurrency])
+
+setFavoriteContent(true)
 
 const saveComparisonValue = {
   id:crypto.randomUUID(),
@@ -319,7 +326,7 @@ return(
 
 
           {/* favorite/favorited /log conversion */}
-         <HistoryFavoritedLogConversion tools={tools} onChangeTools={handleTools} favoriteList={favoriteList} isBaseComparison={isBaseComparison} compareResults={compareResults} singleRate={singleRateCurrency}/>
+         <Tools tools={tools} onChangeTools={handleTools} favoriteList={favoriteList} isBaseComparison={isBaseComparison} compareResults={compareResults}  showFavContent={favoriteContent}/>
 
 
 
@@ -816,4 +823,87 @@ export default ERHero
 // but the data will be shown is only ToSelectedValue. because we are comparing it  but the value of the header will be th fromselected because it is the one we have the value and show what we compare
 
 
+
 //  do we need a state so it will show the ones we added to compile them for our base currency
+
+// favorite so we need to put the rate of each single in the favorite 
+
+// we can check like this ? rate: singleRateCurrency.rate??
+
+
+// in COMPARE tools compare we just need to delete and favorite it again
+
+//
+
+
+
+// favorite Puting single rate on the each favorite 
+
+
+
+// where the data will be coming from so we have created a favoritelist array where we save the current currency checker 
+
+// we created a saveCurrentCurrency
+
+//  
+
+// const saveCurrentCurrency = {
+//   id:crypto.randomUUID(),
+//   fromFlag:fromSelectedCurrency.flag,
+//   from:fromSelectedCurrency.value,
+//   to:toSelectedCurrency.value,
+//   toFlag:toSelectedCurrency.flag,
+//   amount,
+//   convertedAmount,
+//   rate:singleRateCurrency,
+// }
+
+// output we need  is 
+
+//  USD / PHP                                               61.98
+
+
+// PROBLEM
+// so the problem is we save the rate as singlerateCheker and save it in a array form
+
+// whenever we saved the current  crrency  eg. USD /PHP 61.98
+
+// when we change the current currency USD/EURO  0.8888     
+
+// USD/PHP  0.8888        
+// USD/EURO  0.8888     
+
+//  it look like this
+
+
+// do we need to changed the singleRatechecker ? 
+// do we need to transform the given data of singleRAteChker
+
+//
+// {
+//  base: "USD"
+// date: "2026-07-07"
+// quote: "GBP"
+// rate: 0.74913
+// }
+
+
+// to understand the problem we have is we are have problem in reference vs value . 
+
+// the data of singlerateChecker is giving us diffrent value always because it always calls the api and  return us new  whole object with new data inside
+
+// answer
+
+// first we do is save it our savecurrency and put a property named rate
+
+
+// const saveCurrentCurrency = {
+
+// rate:singleRateCheker.rate
+// }
+
+// but thing is WHen we displaying it still returns new object for all and not retain the old object that save for the first save of currency 
+
+// thats when i check the ui  so favoriteList that we map is wrong when displaying rate , instead of  <span>{item.rate}</span>  , we dsiplaying it like this  <span>{singlerateChecker.rate}</span>
+
+//  so it shows like its wrong every save still returns new for all rates for the list of favlorites
