@@ -9,6 +9,7 @@ import Tools from "./tools";
 
 
 
+
 const ERHero = () => {
 const countriesCurrency = [
   { currency: "USD", country: "United States", flag: "us" },
@@ -242,10 +243,105 @@ const isBaseComparison = favoriteList.find((item) =>item.from === fromSelectedCu
 
 
 // console.log(compareResults , "COMPARASION LISTS")
-
-
 console.log(favoriteList)
 
+
+
+// history 
+// 
+const [currencyGraphData,setCurrencyGraphData]=useState([])
+
+const [selectedRanged,setSelectedRanged]=useState("1D")
+
+useEffect(() => {
+
+const fetchGraphDataDays = async (range) => {
+
+try {
+
+const endDate = new Date();
+const startDate = new Date(endDate)
+
+
+// makes the date range dynamically instead manully hardcoded 1 by 1 or more fecth req
+
+switch (range){
+case "1D" : 
+  startDate.setDate(endDate.getDate() - 1);
+  break;
+case "1W" : 
+  startDate.setDate(endDate.getDate() - 7);
+  break;
+case "1M" :
+  startDate.setMonth(endDate.getMonth() - 1);
+  break;
+case "3M" :
+  startDate.setMonth(endDate.getMonth() - 3);
+
+  break;
+case "1Y" :
+  startDate.setFullYear(endDate.getFullYear() - 1);
+  break;
+case "5Y":
+  startDate.setFullYear(endDate.getFullYear() - 5);
+  break;  
+
+  default: 
+ startDate.setDate(endDate.getDate() - 1);
+
+}
+
+const from = startDate.toISOString().split('T')[0];
+const to = endDate.toISOString().split('T')[0];
+
+console.log(from , "start of data  graph")
+console.log(to  , "end of data  graph")
+
+
+const api = import.meta.env.VITE_FXCHECKER_API;
+
+
+
+const response = await axios.get(api , {
+params: {
+base:fromSelectedCurrency.value ,
+ from,
+ to,
+ quotes:toSelectedCurrency.value
+ }
+})
+
+
+console.log(response.data)
+setCurrencyGraphData(response.data)
+
+
+
+}catch (err){
+  console.error("Error fetching Dates" ,err)
+}
+
+}
+
+fetchGraphDataDays(selectedRanged);
+
+
+},[fromSelectedCurrency,toSelectedCurrency,selectedRanged])
+
+
+// const date = new Date();
+
+// // tomake the get time to like this "2026-01-01 same as the data we will get"
+// const dateStr =date.toISOString().split('T')[0];
+
+
+// const previousMonthDate = new Date()
+// previousMonthDate.setMonth(previousMonthDate.getMonth() - 1)
+
+// const previousmonth =  previousMonthDate.toISOString().split('T')[0];
+
+// console.log(dateStr)
+console.log(currencyGraphData, "data for graph")
 
 
 return(
@@ -326,7 +422,17 @@ return(
 
 
           {/* favorite/favorited /log conversion */}
-         <Tools tools={tools} onChangeTools={handleTools} favoriteList={favoriteList} isBaseComparison={isBaseComparison} compareResults={compareResults}  showFavContent={favoriteContent}/>
+         <Tools 
+         tools={tools} 
+         onChangeTools={handleTools} 
+         favoriteList={favoriteList} 
+         isBaseComparison={isBaseComparison} 
+         compareResults={compareResults}  
+         showFavContent={favoriteContent} 
+         currencyGraphData={currencyGraphData}
+         onSelectedRanged={setSelectedRanged}
+         selectedRanged={selectedRanged}
+         />
 
 
 
@@ -907,3 +1013,5 @@ export default ERHero
 // thats when i check the ui  so favoriteList that we map is wrong when displaying rate , instead of  <span>{item.rate}</span>  , we dsiplaying it like this  <span>{singlerateChecker.rate}</span>
 
 //  so it shows like its wrong every save still returns new for all rates for the list of favlorites
+
+

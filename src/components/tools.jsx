@@ -1,7 +1,8 @@
 import Compare from "./compare-tool"
 import Favorite from "./favorite-tool"
+import History from "./history-tool"
 
-const Tools = ({tools, onChangeTools ,favoriteList, isBaseComparison, compareResults , showFavContent}) => {
+const Tools = ({tools, onChangeTools ,favoriteList, isBaseComparison, compareResults , showFavContent , currencyGraphData ,selectedRanged, onSelectedRanged}) => {
 
 
 
@@ -16,6 +17,11 @@ return(
       <option className="bg-BlackSR  text-white"  value="log">Log</option>
     </select>
       <div className="w-full h-auto p-2">
+      {tools === "history" &&
+      <History currencyGraphData={currencyGraphData} onSelect={onSelectedRanged}  selectedRanged={selectedRanged}/>
+      }
+
+
       {tools === "compare" && 
      
       <Compare isBaseComparison={isBaseComparison} compareResults={compareResults}/>
