@@ -1,8 +1,11 @@
 import { AreaChart,XAxis,Tooltip,ResponsiveContainer ,CartesianGrid, YAxis, Area} from "recharts"
+import { useCurrencyContext } from "../context/currencyContext"
+
+const History = () => {
 
 
+const {currencyGraphData ,selectedRanged ,setSelectedRanged} =useCurrencyContext();
 
-const History = ({currencyGraphData,selectedRanged, onSelect }) => {
 
 let openRate =currencyGraphData.length > 0 ? currencyGraphData[0].rate : null
 
@@ -17,7 +20,10 @@ let percentChange = ((change / openRate) * 100).toFixed(4)
 
 return(
 <div className="h-auto">
-  <div className="flex flex-row max-w-lg w-auto h-auto flex-wrap gap-2 ">
+
+<div className="flex flex-col gap-5 lg:flex-row w-full  max-w-5xl lg:justify-between lg:items-center p-1 mb-10">
+
+<div className="flex flex-row max-w-lg w-auto h-auto flex-wrap gap-2 ">
   {/* open */}
     <div className="bg-BlackLight w-30 h-20 rounded-2xl text-sm flex flex-col items-start justify-center gap-4 p-3">
     <span className="text-gray-400">OPEN</span>
@@ -46,24 +52,29 @@ return(
   
   </div>
 
-{/*graph-container */}
-    <div className="flex flex-col gap-8 p-2 ">
-        <div className="flex flex-row gap-5 bg-BlackSR w-auto mt- p-2 rounded-md " >
+
+        <div className="flex flex-row max-w-xs gap-3 h-10  lg:gap-8 border bg-BlackSR w-auto  p-2 rounded-md " >
         {/*  1d 1week 1month 1year */}
-          <button className={`w-15 ${selectedRanged === "1D" ? "text-white" :"text-gray-400"}`} onClick={() => onSelect("1D")}>1D</button>
-          <button className={`w-15 ${selectedRanged === "1W" ? "text-white" :"text-gray-400"}`} onClick={() => onSelect("1W")}>1W</button>
-          <button className={`w-15 ${selectedRanged === "1M" ? "text-white" :"text-gray-400"}`} onClick={() => onSelect("1M")}>1M</button>
-          <button className={`w-15 ${selectedRanged === "3M" ? "text-white" :"text-gray-400"}`} onClick={() => onSelect("3M")}>3M</button>
-          <button className={`w-15 ${selectedRanged === "1Y" ? "text-white" :"text-gray-400"}`} onClick={() => onSelect("1Y")}>1Y</button>
-          <button className={`w-15 ${selectedRanged === "5Y" ? "text-white" :"text-gray-400"}`} onClick={() => onSelect("5Y")}>5Y</button>
+          <button className={`w-10  lg:w-8 ${selectedRanged === "1D" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("1D")}>1D</button>
+          <button className={`w-10 lg:w-8 ${selectedRanged === "1W" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("1W")}>1W</button>
+          <button className={`w-10 lg:w-8 ${selectedRanged === "1M" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("1M")}>1M</button>
+          <button className={`w-10 lg:w-8 ${selectedRanged === "3M" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("3M")}>3M</button>
+          <button className={` w-10 lg:w-8 ${selectedRanged === "1Y" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("1Y")}>1Y</button>
+          <button className={`w-10 slg:w-8 ${selectedRanged === "5Y" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("5Y")}>5Y</button>
 
 
 
         </div>
 
+</div>
+  
+{/*graph-container */}
 
+
+    <div className="  max-w-5xl w-full  p-1 ">
           {/* graph  */}
-      <div>
+      <div className="bg-BlackLight rounded-lg">
+      <span></span>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={currencyGraphData}>
             <defs>
@@ -157,8 +168,9 @@ return(
           tick={{ fill: "#fff" , fontSize:"10px" }} tickFormatter={(value) => value.toFixed(3)} />
 
 
+         <Tooltip formatter={(value) => [value.toFixed(5), "Exchange Rate"]
+  }/>
           {/* line */}
-
           <Area 
           type="monotone"
           // rate
@@ -255,7 +267,7 @@ export default History
 
 
 
-// history
+// history july 13
 
 // so we created a graph that handles from 1 month jun to july 
 
@@ -286,3 +298,20 @@ export default History
 
 
 // open last ,change %change
+
+
+// today we learn how to use rechart for 2nd time
+
+//  we created a data that will show exchange rates from thscurrecnt conversion 
+
+// 1. Dynamic API requests for historical data
+
+// Initially, I created a function that fetched only 1 month of historical data using the Frankfurter API.
+
+// After discussing the implementation with ai, I realized I didn't need multiple API request functions for each time range (1D, 1W, 1M, 3M, 1Y, 5Y).
+
+// Instead, I created a single fetchGraphData function that dynamically changes the from and to dates based on the selected range.
+
+// using switch and passed the slected button as  ranged
+
+// and use date based on the passed button so if 1year we need to getfullYear in date method

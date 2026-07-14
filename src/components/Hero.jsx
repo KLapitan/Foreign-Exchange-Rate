@@ -1,349 +1,22 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import FXInput from "./input"
 import Dropdown from "./dropdown-currency"
-import convert from "./currency-conversion";
+
 
 import Tools from "./tools";
+import { useCurrencyContext } from "../context/currencyContext";
 
 
 
 
 
 const ERHero = () => {
-const countriesCurrency = [
-  { currency: "USD", country: "United States", flag: "us" },
-  { currency: "EUR", country: "European Union", flag: "eu" },
-  { currency: "GBP", country: "United Kingdom", flag: "gb" },
-  { currency: "JPY", country: "Japan", flag: "jp" },
-  { currency: "PHP", country: "Philippines", flag: "ph" },
-  { currency: "AUD", country: "Australia", flag: "au" },
-  { currency: "CAD", country: "Canada", flag: "ca" },
-  { currency: "CHF", country: "Switzerland", flag: "ch" },
-  { currency: "CNY", country: "China", flag: "cn" },
-  { currency: "HKD", country: "Hong Kong", flag: "hk" },
-  { currency: "SGD", country: "Singapore", flag: "sg" },
-  { currency: "KRW", country: "South Korea", flag: "kr" },
-  { currency: "INR", country: "India", flag: "in" },
-  { currency: "MYR", country: "Malaysia", flag: "my" },
-  { currency: "THB", country: "Thailand", flag: "th" },
-  { currency: "IDR", country: "Indonesia", flag: "id" },
-  { currency: "VND", country: "Vietnam", flag: "vn" },
-  { currency: "TWD", country: "Taiwan", flag: "tw" },
-  { currency: "NZD", country: "New Zealand", flag: "nz" },
-  { currency: "MXN", country: "Mexico", flag: "mx" },
-  { currency: "BRL", country: "Brazil", flag: "br" },
-  { currency: "ARS", country: "Argentina", flag: "ar" },
-  { currency: "CLP", country: "Chile", flag: "cl" },
-  { currency: "COP", country: "Colombia", flag: "co" },
-  { currency: "PEN", country: "Peru", flag: "pe" },
-  { currency: "ZAR", country: "South Africa", flag: "za" },
-  { currency: "EGP", country: "Egypt", flag: "eg" },
-  {currency: "NGN", country: "Nigeria", flag: "ng" },
-  { currency: "KES", country: "Kenya", flag: "ke" },
-  { currency: "AED", country: "United Arab Emirates", flag: "ae" },
-  { currency: "SAR", country: "Saudi Arabia", flag: "sa" },
-  { currency: "QAR", country: "Qatar", flag: "qa" },
-  { currency: "KWD", country: "Kuwait", flag: "kw" },
-  { currency: "BHD", country: "Bahrain", flag: "bh" },
-  { currency: "OMR", country: "Oman", flag: "om" },
-  { currency: "TRY", country: "Turkey", flag: "tr" },
-  { currency: "RUB", country: "Russia", flag: "ru" },
-  { currency: "UAH", country: "Ukraine", flag: "ua" },
-  { currency: "PLN", country: "Poland", flag: "pl" },
-  { currency: "CZK", country: "Czech Republic", flag: "cz" },
-  { currency: "HUF", country: "Hungary", flag: "hu" },
-  { currency: "RON", country: "Romania", flag: "ro" },
-  { currency: "SEK", country: "Sweden", flag: "se" },
-  { currency: "NOK", country: "Norway", flag: "no" },
-  { currency: "DKK", country: "Denmark", flag: "dk" },
-  { currency: "ISK", country: "Iceland", flag: "is" },
-];
 
-const options = countriesCurrency.map((country)=> ({
-    value:country.currency,
-    label:country.country,
-    flag:country.flag
-}))
+const {fromSelectedCurrency ,setFromSelectedCurrency,toSelectedCurrency,setToSelectedCurrency,options,singleRateCurrency,  convertedAmount, isFavorite,handleSwitchExchange ,handleFavorite}=useCurrencyContext();
 
-// for us to know what user select on the currency dropdown
-// sendValue dropdown
-const [fromSelectedCurrency, setFromSelectedCurreny]=useState(options.find((option) => option.value === "USD"))
 
-// recieve dropdown
-const [toSelectedCurrency ,setToSelectedCurrency]=useState(options.find((option) => option.value === "EUR"))
 
-
-// input
-const [amount,setAmount]=useState(1000)
-const [convertedAmount,setConvertedAmount]=useState('')
-
-const handleAmountInput = (e) => {
-const value = e.target.value
-
-setAmount(Number(value))
-}
-
-
-useEffect(() => {
-if(!amount) return  ;
-
-// we change the number into a number  not in a string
-const handleConversion = async () => {
-const result = await convert(
-fromSelectedCurrency.value,
-toSelectedCurrency.value,
-amount
-)
-
-const formattedResult = result.toLocaleString("en-US",{
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-})
-
-
-//  because every stroke it gets so we can use setitmout or useffect
-setConvertedAmount(formattedResult)
-
-}
- handleConversion()
-
-},[amount,fromSelectedCurrency,toSelectedCurrency])
-
-
-
-console.log(convertedAmount )
-
-// console.log(typeof convertedAmount)
-
-
-// switch the send and receive ui
-const handleSwitchExchange = () => {
-const tempValue =fromSelectedCurrency
-
-setFromSelectedCurreny(toSelectedCurrency)
-setToSelectedCurrency(tempValue)
-
-} 
-
-
-// state of the singleRate
-
-const [singleRateCurrency,setSingleRateCurrency]=useState({})
-// check the single currency for the used conversion
-useEffect(() => {
-const singleRateChecker = async () =>{
-
-const baseCurrency = fromSelectedCurrency.value ;
-const singleRateURL = import.meta.env.VITE_SINGLERATECHECKER_API;
-const targetCurrency = toSelectedCurrency.value;
-
-
-try {
-// path parameters
-const  formattedRateURL =`${singleRateURL}/${baseCurrency}/${targetCurrency}`;
-const response = await axios.get(formattedRateURL);
-
-const data =response.data
-
-// TODO . We need to show the single rate in favorites and when  it change it the rate from the other one will not change
-
-// we formatte the rate because when want to get rate to be seen in favorite it all change
-// const formattedSingleRate = {
-//   base: data.base,
-//   rate: data.rate,
-//   quote: data.quote,
-//   date: data.date,
-// };
-
-  setSingleRateCurrency(data) 
-
-}catch (error){
-console.error("Error in fetching data currency rate" ,error)
-
-}
-
-}
-
-singleRateChecker()
-},[fromSelectedCurrency, toSelectedCurrency])
-
-console.log(singleRateCurrency , "rate of single")
-
-
-
-// history/favorite/LogCOnversion
-
-const [tools,setTools]=useState("history")
-
-const handleTools = (e) => {
-setTools(e.target.value)
-}
-
-// favorite/favorited
-// why array ? becausew we want to the valueos of slected currecy and show it in ui
-const [favoriteList,setFavoriteList]=useState([])
-
-// if nothing yet saved
-
-const [favoriteContent,setFavoriteContent]=useState(false)
-
-
-// we change from  checking by flag to finding it inside the array so it will accurate in displaying
-const isFavorite = favoriteList.some((item) => item.from === fromSelectedCurrency.value && item.to === toSelectedCurrency.value)
-
-// handlerEvent for Button favorited
-
-
-
-const handleFavorite =() => {
-const saveCurrentCurrency = {
-  id:crypto.randomUUID(),
-  fromFlag:fromSelectedCurrency.flag,
-  from:fromSelectedCurrency.value,
-  to:toSelectedCurrency.value,
-  toFlag:toSelectedCurrency.flag,
-  amount,
-  convertedAmount,
-  rate: singleRateCurrency.rate,
- 
-
-
-}
-
-setFavoriteList((prev) => [...prev,saveCurrentCurrency])
-
-setFavoriteContent(true)
-
-const saveComparisonValue = {
-  id:crypto.randomUUID(),
-  to:toSelectedCurrency.value,
-  convertedAmount,
-
-}
-
-  setCompareResults((prev) => [...prev, saveComparisonValue])
-
-}
-
-
-
-
-// compare 
-const [compareResults,setCompareResults]=useState([])
-
-// base currency that will be compared to
-const isBaseComparison = favoriteList.find((item) =>item.from === fromSelectedCurrency.value)
-
-
-// list of the base needed to be compared to
-
-
-
-
-
-// console.log(compareResults , "COMPARASION LISTS")
-console.log(favoriteList)
-
-
-
-// history 
-// 
-const [currencyGraphData,setCurrencyGraphData]=useState([])
-
-const [selectedRanged,setSelectedRanged]=useState("1D")
-
-useEffect(() => {
-
-const fetchGraphDataDays = async (range) => {
-
-try {
-
-const endDate = new Date();
-const startDate = new Date(endDate)
-
-
-// makes the date range dynamically instead manully hardcoded 1 by 1 or more fecth req
-
-switch (range){
-case "1D" : 
-  startDate.setDate(endDate.getDate() - 1);
-  break;
-case "1W" : 
-  startDate.setDate(endDate.getDate() - 7);
-  break;
-case "1M" :
-  startDate.setMonth(endDate.getMonth() - 1);
-  break;
-case "3M" :
-  startDate.setMonth(endDate.getMonth() - 3);
-
-  break;
-case "1Y" :
-  startDate.setFullYear(endDate.getFullYear() - 1);
-  break;
-case "5Y":
-  startDate.setFullYear(endDate.getFullYear() - 5);
-  break;  
-
-  default: 
- startDate.setDate(endDate.getDate() - 1);
-
-}
-
-const from = startDate.toISOString().split('T')[0];
-const to = endDate.toISOString().split('T')[0];
-
-console.log(from , "start of data  graph")
-console.log(to  , "end of data  graph")
-
-
-const api = import.meta.env.VITE_FXCHECKER_API;
-
-
-
-const response = await axios.get(api , {
-params: {
-base:fromSelectedCurrency.value ,
- from,
- to,
- quotes:toSelectedCurrency.value
- }
-})
-
-
-console.log(response.data)
-setCurrencyGraphData(response.data)
-
-
-
-}catch (err){
-  console.error("Error fetching Dates" ,err)
-}
-
-}
-
-fetchGraphDataDays(selectedRanged);
-
-
-},[fromSelectedCurrency,toSelectedCurrency,selectedRanged])
-
-
-// const date = new Date();
-
-// // tomake the get time to like this "2026-01-01 same as the data we will get"
-// const dateStr =date.toISOString().split('T')[0];
-
-
-// const previousMonthDate = new Date()
-// previousMonthDate.setMonth(previousMonthDate.getMonth() - 1)
-
-// const previousmonth =  previousMonthDate.toISOString().split('T')[0];
-
-// console.log(dateStr)
-console.log(currencyGraphData, "data for graph")
-
-
+console.log(fromSelectedCurrency,"dropdown ui")
+console.log(toSelectedCurrency, "dropdown ui")
 return(
 <main className="h-auto bg-black">
     <section className="h-auto max-w-6xl  w-full p-3 font-JetBrains-Mono border-white border ">
@@ -357,11 +30,11 @@ return(
               <span className="text-white/60 text-lg font-bold ">SEND</span>
 
               <div className="w-auto flex flex-row justify-between">
-                <FXInput amount={amount} onChangeInput={handleAmountInput}/>
+                <FXInput />
 
                 {/* dropdown */}
-               
-                <Dropdown value={fromSelectedCurrency} onChange={setFromSelectedCurreny} options={options}/>
+               {/* only dropdown has props  */}
+                <Dropdown value={fromSelectedCurrency} onChange={setFromSelectedCurrency} options={options}/>
               
               </div>
           
@@ -422,28 +95,9 @@ return(
 
 
           {/* favorite/favorited /log conversion */}
-         <Tools 
-         tools={tools} 
-         onChangeTools={handleTools} 
-         favoriteList={favoriteList} 
-         isBaseComparison={isBaseComparison} 
-         compareResults={compareResults}  
-         showFavContent={favoriteContent} 
-         currencyGraphData={currencyGraphData}
-         onSelectedRanged={setSelectedRanged}
-         selectedRanged={selectedRanged}
-         />
-
-
-
-
+         <Tools />
     </section>
-
-
-
-
-
-</main>
+    </main>
 )}
 export default ERHero
 

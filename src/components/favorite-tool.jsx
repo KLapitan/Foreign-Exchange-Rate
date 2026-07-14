@@ -1,10 +1,14 @@
-const Favorite = ({favoriteList, showFavContent}) => {
+import { useCurrencyContext } from "../context/currencyContext"
+
+const Favorite = () => {
+
+const {favoriteList , favoriteContent}=useCurrencyContext();
 return(
 
-      <div className={`border h-auto  border-white p-2 ${showFavContent ? "h-auto" : "h-80"}`}>
+      <div className={`border h-auto  border-white p-2 ${favoriteContent ? "h-auto" : "h-80"}`}>
         <h2 className="text-white  flex flex-row justify-between">FAVORITES <span>{favoriteList.length > 1 ? favoriteList.length + " pairs" : ""} </span></h2>
       
-       {showFavContent ? (
+       {favoriteContent ? (
             <ul className="flex flex-col gap-3 h-auto ">
         {favoriteList.map((item) => (
         <li className="flex flex-row text-white bg-BlackLight items-center  border h-10 p-2  justify-between ">

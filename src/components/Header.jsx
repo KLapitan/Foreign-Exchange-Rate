@@ -1,4 +1,9 @@
-const ERHeader = ({rates , slidingRate}) => {
+import { useCurrencyContext } from "../context/currencyContext"
+
+const ERHeader = () => {
+
+const {rates,duplicateRates} = useCurrencyContext();
+
 
 return(
 <header className="h-auto">
@@ -22,7 +27,7 @@ return(
         {/* holding the xchange rates ul */}
         <div className=" w-full overflow-hidden z-20 ">
           <ul className="w-max whitespace-nowrap flex animate-scroll font-JetBrains-Mono ">
-            {slidingRate.map((item ,index) => (
+            {duplicateRates.map((item ,index) => (
             <li key={item.currency + index} className="flex  border-2 border-r-gray-600 items-center shrink-0 px-6 h-10">
             <span className="flex flex-row gap-4 text-white/60">
             <span>
