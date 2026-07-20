@@ -5,6 +5,7 @@ import { createContext } from "react";
 import * as api from "../services/currencyAPI";
 import { useContext } from "react";
 import convert from "../components/currency-conversion";
+import axios from "axios";
 
  const CurrencyContext = createContext(null)
 
@@ -337,10 +338,10 @@ useEffect(() => {
     case "1Y" :
           fromCurrentDate.setFullYear(toCurrentDate.getFullYear() - 1);
           break;
-    case "5Y":
-          fromCurrentDate.setFullYear(toCurrentDate.getFullYear() - 5);
-          break;  
-
+     case "5Y":
+    fromCurrentDate.setFullYear(toCurrentDate.getFullYear() - 5);
+    break;
+         
     default: 
           fromCurrentDate.setDate(toCurrentDate.getDate() - 1);
       
@@ -355,11 +356,14 @@ useEffect(() => {
       console.log(formattedToCurrentDate , "end of data  graph")
 
 
+// passed the value with objects so it will contains the
+// we passed the ranged for NDJSON for getting group of month
 const response = await api.fetchGraphDataRates({
   baseCurrency: fromSelectedCurrency.value,
   previousDate: formattedPreviousDate,
   currentDate: formattedToCurrentDate,
   targetCurrency: toSelectedCurrency.value,
+  range: selectedRanged,
 });
 
 console.log(fromSelectedCurrency.value)

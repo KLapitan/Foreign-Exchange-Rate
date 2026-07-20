@@ -41,20 +41,23 @@ const formattedSingleRateURL =`${singleRateURL}/${baseCurrency}/${targetCurrency
 return axios.get(formattedSingleRateURL)
 }
 
-export const fetchGraphDataRates = async ({baseCurrency,currentDate,previousDate, targetCurrency}) => {
-console.log({
-  baseCurrency,
-  targetCurrency,
-  previousDate,
-  currentDate,
-} ,"API RESPONSE FOR GRAPH");
+export const fetchGraphDataRates = async ({baseCurrency,currentDate,previousDate, targetCurrency,range}) => {
+// console.log({
+//   baseCurrency,
+//   targetCurrency,
+//   previousDate,
+//   currentDate,
+// } ,"API RESPONSE FOR GRAPH");
 
+
+// we used NDJSON
 return axios.get(baseURL , {
 params: {
 base: baseCurrency || base,
 from:previousDate,
 to:currentDate,
 quotes:targetCurrency, 
+...(range === "5Y" && { group : "month" })
 
 }})
 
