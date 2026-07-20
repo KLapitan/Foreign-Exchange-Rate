@@ -2,7 +2,7 @@ import { useCurrencyContext } from "../context/currencyContext"
 
 const ERHeader = () => {
 
-const {rates,duplicateRates} = useCurrencyContext();
+const {liveRates,duplicateRates} = useCurrencyContext();
 
 
 return(
@@ -14,7 +14,7 @@ return(
     </picture>
 
     <div className="w-auto font-JetBrains-Mono font-light">
-      <span className="text-white/70 text-xs sm:text-md">{rates.length} CURRENCIES · </span>
+      <span className="text-white/70 text-xs sm:text-md">{liveRates.length} CURRENCIES · </span>
       <span className="text-white/70 text-xs sm:text-md">EOD · </span>
       <span className="text-white/70 text-xs sm:text-md">ECB DATA  </span>
     

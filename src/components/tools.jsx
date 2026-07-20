@@ -25,7 +25,7 @@ return(
 
       {tools === "compare" && 
      
-      <Compare isBaseComparison={isBaseComparison} compareResults={compareResults}/>
+      <Compare />
       }
 
       {tools === "favorites"  &&  

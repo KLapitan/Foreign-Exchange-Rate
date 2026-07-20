@@ -5,7 +5,7 @@ import { createContext } from "react";
 import * as api from "../services/currencyAPI";
 import { useContext } from "react";
 import convert from "../components/currency-conversion";
-import axios from "axios";
+
 
  const CurrencyContext = createContext(null)
 
@@ -56,6 +56,128 @@ const countriesCurrency = [
   { currency: "NOK", country: "Norway", flag: "no" },
   { currency: "DKK", country: "Denmark", flag: "dk" },
   { currency: "ISK", country: "Iceland", flag: "is" },
+
+
+
+
+  { currency: "AFN", country: "Afghanistan", flag: "af" },
+  { currency: "ALL", country: "Albania", flag: "al" },
+  { currency: "AMD", country: "Armenia", flag: "am" },
+  { currency: "ANG", country: "Curaçao", flag: "cw" },
+  { currency: "AOA", country: "Angola", flag: "ao" },
+  { currency: "AWG", country: "Aruba", flag: "aw" },
+  { currency: "AZN", country: "Azerbaijan", flag: "az" },
+
+  { currency: "BAM", country: "Bosnia and Herzegovina", flag: "ba" },
+  { currency: "BDT", country: "Bangladesh", flag: "bd" },
+  { currency: "BGN", country: "Bulgaria", flag: "bg" },
+  { currency: "BIF", country: "Burundi", flag: "bi" },
+  { currency: "BMD", country: "Bermuda", flag: "bm" },
+  { currency: "BND", country: "Brunei", flag: "bn" },
+  { currency: "BOB", country: "Bolivia", flag: "bo" },
+  { currency: "BSD", country: "Bahamas", flag: "bs" },
+  { currency: "BTN", country: "Bhutan", flag: "bt" },
+  { currency: "BWP", country: "Botswana", flag: "bw" },
+  { currency: "BYN", country: "Belarus", flag: "by" },
+
+  { currency: "CDF", country: "Democratic Republic of the Congo", flag: "cd" },
+  { currency: "CRC", country: "Costa Rica", flag: "cr" },
+  { currency: "CUP", country: "Cuba", flag: "cu" },
+  { currency: "CVE", country: "Cape Verde", flag: "cv" },
+
+  { currency: "DJF", country: "Djibouti", flag: "dj" },
+  { currency: "DOP", country: "Dominican Republic", flag: "do" },
+  { currency: "DZD", country: "Algeria", flag: "dz" },
+
+  { currency: "ETB", country: "Ethiopia", flag: "et" },
+
+  { currency: "FJD", country: "Fiji", flag: "fj" },
+  { currency: "FKP", country: "Falkland Islands", flag: "fk" },
+
+  { currency: "GEL", country: "Georgia", flag: "ge" },
+  { currency: "GHS", country: "Ghana", flag: "gh" },
+  { currency: "GIP", country: "Gibraltar", flag: "gi" },
+  { currency: "GMD", country: "Gambia", flag: "gm" },
+  { currency: "GNF", country: "Guinea", flag: "gn" },
+  { currency: "GTQ", country: "Guatemala", flag: "gt" },
+  { currency: "GYD", country: "Guyana", flag: "gy" },
+
+  { currency: "HNL", country: "Honduras", flag: "hn" },
+  { currency: "HTG", country: "Haiti", flag: "ht" },
+
+  { currency: "ILS", country: "Israel", flag: "il" },
+  { currency: "IQD", country: "Iraq", flag: "iq" },
+  { currency: "IRR", country: "Iran", flag: "ir" },
+
+  { currency: "JMD", country: "Jamaica", flag: "jm" },
+  { currency: "JOD", country: "Jordan", flag: "jo" },
+
+  { currency: "KGS", country: "Kyrgyzstan", flag: "kg" },
+  { currency: "KHR", country: "Cambodia", flag: "kh" },
+  { currency: "KMF", country: "Comoros", flag: "km" },
+  { currency: "KZT", country: "Kazakhstan", flag: "kz" },
+
+  { currency: "LAK", country: "Laos", flag: "la" },
+  { currency: "LBP", country: "Lebanon", flag: "lb" },
+  { currency: "LKR", country: "Sri Lanka", flag: "lk" },
+  { currency: "LRD", country: "Liberia", flag: "lr" },
+  { currency: "LSL", country: "Lesotho", flag: "ls" },
+
+  { currency: "MAD", country: "Morocco", flag: "ma" },
+  { currency: "MDL", country: "Moldova", flag: "md" },
+  { currency: "MGA", country: "Madagascar", flag: "mg" },
+  { currency: "MKD", country: "North Macedonia", flag: "mk" },
+  { currency: "MMK", country: "Myanmar", flag: "mm" },
+  { currency: "MNT", country: "Mongolia", flag: "mn" },
+  { currency: "MOP", country: "Macau", flag: "mo" },
+  { currency: "MUR", country: "Mauritius", flag: "mu" },
+  { currency: "MVR", country: "Maldives", flag: "mv" },
+  { currency: "MWK", country: "Malawi", flag: "mw" },
+  { currency: "MZN", country: "Mozambique", flag: "mz" },
+    { currency: "NAD", country: "Namibia", flag: "na" },
+  { currency: "NPR", country: "Nepal", flag: "np" },
+
+  { currency: "PAB", country: "Panama", flag: "pa" },
+  { currency: "PGK", country: "Papua New Guinea", flag: "pg" },
+  { currency: "PKR", country: "Pakistan", flag: "pk" },
+  { currency: "PYG", country: "Paraguay", flag: "py" },
+
+  { currency: "RSD", country: "Serbia", flag: "rs" },
+  { currency: "RWF", country: "Rwanda", flag: "rw" },
+
+  { currency: "SBD", country: "Solomon Islands", flag: "sb" },
+  { currency: "SCR", country: "Seychelles", flag: "sc" },
+  { currency: "SDG", country: "Sudan", flag: "sd" },
+  { currency: "SOS", country: "Somalia", flag: "so" },
+  { currency: "SRD", country: "Suriname", flag: "sr" },
+  { currency: "STN", country: "São Tomé and Príncipe", flag: "st" },
+  { currency: "SYP", country: "Syria", flag: "sy" },
+  { currency: "SZL", country: "Eswatini", flag: "sz" },
+
+  { currency: "TJS", country: "Tajikistan", flag: "tj" },
+  { currency: "TMT", country: "Turkmenistan", flag: "tm" },
+  { currency: "TND", country: "Tunisia", flag: "tn" },
+  { currency: "TOP", country: "Tonga", flag: "to" },
+  { currency: "TTD", country: "Trinidad and Tobago", flag: "tt" },
+  { currency: "TZS", country: "Tanzania", flag: "tz" },
+
+  { currency: "UGX", country: "Uganda", flag: "ug" },
+  { currency: "UYU", country: "Uruguay", flag: "uy" },
+  { currency: "UZS", country: "Uzbekistan", flag: "uz" },
+
+  { currency: "VES", country: "Venezuela", flag: "ve" },
+  { currency: "WST", country: "Samoa", flag: "ws" },
+
+  { currency: "XAF", country: "Central African CFA", flag: "cm" },
+  { currency: "XCD", country: "East Caribbean", flag: "ag" },
+  { currency: "XOF", country: "West African CFA", flag: "sn" },
+  { currency: "XPF", country: "French Pacific", flag: "pf" },
+
+  { currency: "YER", country: "Yemen", flag: "ye" },
+
+  { currency: "ZMW", country: "Zambia", flag: "zm" },
+  { currency: "ZWL", country: "Zimbabwe", flag: "zw" },
+
 ];
 
 const options = countriesCurrency.map((country)=> ({
@@ -68,7 +190,7 @@ const options = countriesCurrency.map((country)=> ({
 
 const CurrencyProvider  = ({children}) => {
 
-const [rates,setRates]=useState([])
+const [liveRates,setLiveRates]=useState([])
 // state for the diffrence rates that we check from yesterday and todays rates
 const [isChangeRates,setIsChangeRates]=useState([])
 
@@ -125,6 +247,13 @@ const [selectedRanged,setSelectedRanged]=useState("1D")
 
 console.log(favoriteList)
 
+// compare lis
+
+const [compareList,setCompareList]=useState([]);
+
+const baseComparisonValue = fromSelectedCurrency.value;
+
+
 
 
 // handlder EVENTS
@@ -180,7 +309,7 @@ setFavoriteContent(true)
 
 
 
-// useeEFfects (fetching rates , singlerates , conversion)
+// useeEFfects (fetching LiveRates , singlerates , conversion)
 
 // conversion of currencies
 useEffect(() => {
@@ -213,10 +342,10 @@ console.log(convertedAmount )
 
 useEffect(()=> {
 // for moving in nav section live market
-  const loadRates = async () => {
+  const loadLiveMarkets = async () => {
 
   try {
-  const todaysRates = await api.fetchAllRates();
+  const todaysRates = await api.fetchLiveMarket();
   const yesterdayRates = await api.fetchYesterdayRates();
 
 
@@ -282,14 +411,14 @@ useEffect(()=> {
     })
 
     setIsChangeRates(mergedRates)
-    setRates(todaysRes)
+    setLiveRates(todaysRes)
   
   }catch(err){
    console.error ("Error fetching" , err)
   }
   
   }
-  loadRates()
+  loadLiveMarkets()
 },[])
 console.log(isChangeRates, "for loop")
 
@@ -379,13 +508,54 @@ console.log(response.data , "graph data")
     loadGraphDataRates(selectedRanged);
 
 
-},[fromSelectedCurrency .value,toSelectedCurrency.value,selectedRanged ])
+},[fromSelectedCurrency.value,toSelectedCurrency.value,selectedRanged ])
+
+useEffect(() => {
+  if (!amount || !fromSelectedCurrency.value) return;
+const loadCompareRates =  async ( )=> {
+
+
+try{
+
+const response = await api.fetchAllRates({ rateBase: fromSelectedCurrency.value});
+
+const comparsionRates = response.data.map((item) => {
+const comparisonInfo = options.find((C) => C.value === item.quote)
+
+const comparisonAmount = amount *item.rate;
+
+return {
+currency:item.quote,
+country:comparisonInfo?.label || item.quote, 
+flag:comparisonInfo?.flag || null,
+rate:item.rate,
+amount:comparisonAmount.toLocaleString("en-US" , {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }),
+}
+} 
+);
 
 
 
+
+setCompareList(comparsionRates)
+}catch (err) {
+console.error("Error in Fetching data" ,err )
+}
+
+
+
+}
+loadCompareRates();
+
+},[amount ,fromSelectedCurrency.value])
+
+console.log(compareList,"for comparing1232313")
 
 return (
-<CurrencyContext.Provider value={{rates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,favoriteList,currencyGraphData,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput ,handleSwitchExchange,handleTools,handleFavorite,setSelectedRanged
+<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput ,handleSwitchExchange,handleTools,handleFavorite,setSelectedRanged
 }}>
 
 {children}

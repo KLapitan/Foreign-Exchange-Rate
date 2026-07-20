@@ -8,11 +8,18 @@ import axios from "axios";
 
 const singleRateURL = import.meta.env.VITE_SINGLERATECHECKER_API;
 
-
 console.log(baseURL ,"in api ui")
-export const fetchAllRates =async () => {
+
+export const fetchLiveMarket = async () => {
 
 return  axios.get(baseURL , { params: {base }});
+}
+
+
+export const fetchAllRates = async ({ rateBase }) => {
+return axios.get(baseURL, {params : { base: rateBase }})
+
+
 }
 
 export const fetchYesterdayRates = async () => {
