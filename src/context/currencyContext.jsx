@@ -19,6 +19,7 @@ const countriesCurrency = [
   { currency: "CAD", country: "Canada", flag: "ca" },
   { currency: "CHF", country: "Switzerland", flag: "ch" },
   { currency: "CNY", country: "China", flag: "cn" },
+  { currency: "CNH", country: "Chinese Yuan (Offshore)", flag: "cn" },
   { currency: "HKD", country: "Hong Kong", flag: "hk" },
   { currency: "SGD", country: "Singapore", flag: "sg" },
   { currency: "KRW", country: "South Korea", flag: "kr" },
@@ -69,6 +70,7 @@ const countriesCurrency = [
   { currency: "AZN", country: "Azerbaijan", flag: "az" },
 
   { currency: "BAM", country: "Bosnia and Herzegovina", flag: "ba" },
+  { currency: "BBD", country: "Barbadian Dollar", flag: "bb" },
   { currency: "BDT", country: "Bangladesh", flag: "bd" },
   { currency: "BGN", country: "Bulgaria", flag: "bg" },
   { currency: "BIF", country: "Burundi", flag: "bi" },
@@ -79,6 +81,7 @@ const countriesCurrency = [
   { currency: "BTN", country: "Bhutan", flag: "bt" },
   { currency: "BWP", country: "Botswana", flag: "bw" },
   { currency: "BYN", country: "Belarus", flag: "by" },
+  { currency: "BZD", country: "Belize Dollar", flag: "bz" },
 
   { currency: "CDF", country: "Democratic Republic of the Congo", flag: "cd" },
   { currency: "CRC", country: "Costa Rica", flag: "cr" },
@@ -90,6 +93,7 @@ const countriesCurrency = [
   { currency: "DZD", country: "Algeria", flag: "dz" },
 
   { currency: "ETB", country: "Ethiopia", flag: "et" },
+  { currency: "ERN", country: "Eritrean Nakfa", flag: "er" },
 
   { currency: "FJD", country: "Fiji", flag: "fj" },
   { currency: "FKP", country: "Falkland Islands", flag: "fk" },
@@ -101,14 +105,17 @@ const countriesCurrency = [
   { currency: "GNF", country: "Guinea", flag: "gn" },
   { currency: "GTQ", country: "Guatemala", flag: "gt" },
   { currency: "GYD", country: "Guyana", flag: "gy" },
+  { currency: "GGP", country: "Guernsey Pound", flag: "gg" },
 
   { currency: "HNL", country: "Honduras", flag: "hn" },
   { currency: "HTG", country: "Haiti", flag: "ht" },
 
   { currency: "ILS", country: "Israel", flag: "il" },
+  { currency: "IMP", country: "Isle of Man Pound", flag: "im" },
   { currency: "IQD", country: "Iraq", flag: "iq" },
   { currency: "IRR", country: "Iran", flag: "ir" },
 
+  { currency: "JEP", country: "Jersey Pound", flag: "je" },
   { currency: "JMD", country: "Jamaica", flag: "jm" },
   { currency: "JOD", country: "Jordan", flag: "jo" },
 
@@ -116,11 +123,14 @@ const countriesCurrency = [
   { currency: "KHR", country: "Cambodia", flag: "kh" },
   { currency: "KMF", country: "Comoros", flag: "km" },
   { currency: "KZT", country: "Kazakhstan", flag: "kz" },
+  { currency: "KPW", country: "North Korean Won", flag: "kp" },
+  { currency: "KYD", country: "Cayman Islands Dollar", flag: "ky" },
 
   { currency: "LAK", country: "Laos", flag: "la" },
   { currency: "LBP", country: "Lebanon", flag: "lb" },
   { currency: "LKR", country: "Sri Lanka", flag: "lk" },
   { currency: "LRD", country: "Liberia", flag: "lr" },
+  { currency: "LYD", country: "Libyan Dinar", flag: "ly" },
   { currency: "LSL", country: "Lesotho", flag: "ls" },
 
   { currency: "MAD", country: "Morocco", flag: "ma" },
@@ -131,11 +141,15 @@ const countriesCurrency = [
   { currency: "MNT", country: "Mongolia", flag: "mn" },
   { currency: "MOP", country: "Macau", flag: "mo" },
   { currency: "MUR", country: "Mauritius", flag: "mu" },
+  { currency: "MRO", country: "Mauritanian Ouguiya (OLD)", flag: "mr" },
+  { currency: "MRU", country: "Mauritanian Ouguiya (NEW)", flag: "mr" },
+
   { currency: "MVR", country: "Maldives", flag: "mv" },
   { currency: "MWK", country: "Malawi", flag: "mw" },
   { currency: "MZN", country: "Mozambique", flag: "mz" },
     { currency: "NAD", country: "Namibia", flag: "na" },
   { currency: "NPR", country: "Nepal", flag: "np" },
+  { currency: "NIO", country: "Nicaraguan Córdoba", flag: "ni" },
 
   { currency: "PAB", country: "Panama", flag: "pa" },
   { currency: "PGK", country: "Papua New Guinea", flag: "pg" },
@@ -148,9 +162,14 @@ const countriesCurrency = [
   { currency: "SBD", country: "Solomon Islands", flag: "sb" },
   { currency: "SCR", country: "Seychelles", flag: "sc" },
   { currency: "SDG", country: "Sudan", flag: "sd" },
+  { currency: "SHP", country: "Saint Helena Pound", flag: "sh" },
+  { currency: "SLE", country: "Sierra Leonean Leone", flag: "sl" },
   { currency: "SOS", country: "Somalia", flag: "so" },
   { currency: "SRD", country: "Suriname", flag: "sr" },
+
+  { currency: "SSP", country: "South Sudanese Pound", flag: "ss" },
   { currency: "STN", country: "São Tomé and Príncipe", flag: "st" },
+  { currency: "SVC", country: "Salvadoran Colón", flag: "sv" },
   { currency: "SYP", country: "Syria", flag: "sy" },
   { currency: "SZL", country: "Eswatini", flag: "sz" },
 
@@ -166,17 +185,29 @@ const countriesCurrency = [
   { currency: "UZS", country: "Uzbekistan", flag: "uz" },
 
   { currency: "VES", country: "Venezuela", flag: "ve" },
+  { currency: "VUV", country: "Vanuatu Vatu", flag: "vu" },
   { currency: "WST", country: "Samoa", flag: "ws" },
 
+
   { currency: "XAF", country: "Central African CFA", flag: "cm" },
+  { currency: "XCG", country: "Caribbean Guilder (Curaçao & Sint Maarten)", flag: "cw" },
   { currency: "XCD", country: "East Caribbean", flag: "ag" },
   { currency: "XOF", country: "West African CFA", flag: "sn" },
   { currency: "XPF", country: "French Pacific", flag: "pf" },
+  
 
   { currency: "YER", country: "Yemen", flag: "ye" },
 
   { currency: "ZMW", country: "Zambia", flag: "zm" },
   { currency: "ZWL", country: "Zimbabwe", flag: "zw" },
+  { currency: "ZWG", country: "Zimbabwe", flag: "zw" },
+
+  { currency: "XAG", country: "Silver", flag: null },
+  { currency: "XAU", country: "Gold", flag: null },
+  { currency: "XDR", country: "IMF Special Drawing Rights", flag: null },
+  { currency: "XPD", country: "Palladium", flag: null },
+  { currency: "XPT", country: "Platinum", flag: null },
+
 
 ];
 
@@ -247,11 +278,14 @@ const [selectedRanged,setSelectedRanged]=useState("1D")
 
 console.log(favoriteList)
 
-// compare lis
-
+// list of all rates for shown in the compare area
 const [compareList,setCompareList]=useState([]);
 
+// state to track the pairs only
+const [FavoriteCompareList,setFavoriteCompareList]=useState([])
+
 const baseComparisonValue = fromSelectedCurrency.value;
+
 
 
 
@@ -305,8 +339,29 @@ setFavoriteContent(true)
 }
 
 
+// star compared list and show length inside compare list
+
+  const handleComparePairs = (currency) => {
+  
+  setFavoriteCompareList((prev) =>  {
+  return prev.includes(currency)
+     ? prev.filter((item) => item !== currency)
+    : [...prev, currency]
+  
 
 
+  });
+  setFavoriteList((prev) =>  {
+  return prev.includes(currency)
+     ? prev.filter((item) => item !== currency)
+    : [...prev, currency]
+  
+
+
+  });
+  
+  
+  }
 
 
 // useeEFfects (fetching LiveRates , singlerates , conversion)
@@ -552,10 +607,11 @@ loadCompareRates();
 
 },[amount ,fromSelectedCurrency.value])
 
-console.log(compareList,"for comparing1232313")
+
+console.log(favoriteList, "loggin when star is filled")
 
 return (
-<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput ,handleSwitchExchange,handleTools,handleFavorite,setSelectedRanged
+<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,FavoriteCompareList,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput ,handleSwitchExchange,handleTools,handleFavorite,setSelectedRanged,setTools,handleComparePairs
 }}>
 
 {children}

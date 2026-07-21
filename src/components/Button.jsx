@@ -1,9 +1,9 @@
-const ERButton = ({classname}) => {
+const ERButton = ({className, onClick, children}) => {
 
 return (
-<button className={`${clasname}`}>{children}</button>
+<button className={`${className }`} onClick={onClick}>{ children }</button>
 
 )
 
 }
-export default ERButton
+export default ERButton;

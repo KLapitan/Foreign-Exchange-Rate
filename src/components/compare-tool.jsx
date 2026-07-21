@@ -1,42 +1,60 @@
 import { useCurrencyContext } from "../context/currencyContext"
+import ERButton from "./Button";
 
 const Compare = () => {
 
-const {compareList,baseComparisonValue,amount }=useCurrencyContext();
+const {compareList,baseComparisonValue,amount, handleComparePairs, FavoriteCompareList }=useCurrencyContext();
+
+
+
+
+console.log(FavoriteCompareList,"favortie compare")
 
 return (
  <div>
-          <h2 className="text-white">Multi-Currency: <span>{amount}<span></span> <span>{baseComparisonValue}</span>  </span></h2>
+        <div className="flex flex-col sm:flex-row justify-between">
+          <h2 className="text-white mb-2">Multi-Currency:  <span>{amount} FROM<span></span> <span>{baseComparisonValue}</span>  </span></h2>
+
+          <span>{FavoriteCompareList.length} {`${FavoriteCompareList.length > 1 ? "pairs" :"pair"}`} </span>
+        </div>
 
       <ul className="overflow-x-scroll h-110 flex flex-col gap-3 ">
-        {compareList.map((item) => (
-        <li key={item.id} className="text-white w-full ">
-          <span className="w-full border flex flex-row justify-between items-center">
+        {compareList.map((item) =>  {
+        const isFilled = FavoriteCompareList.includes(item.currency)
+        
+        return (
+        <li key={item.currency} className="text-white border w-full  rounded-xl ">
+          <span className="w-full   flex flex-row justify-between items-center">
           <span className="flex flex-row  h-15 w-auto items-center gap-4 p-2">
           {/* flag and name */}    
-        <img src={`https://flagcdn.com/w40/${item.flag}.png`
-        } alt={`${item.label}flag`} className="w-6 h-6 rounded-full"/> 
+        <img  src={item.flag ? `https://flagcdn.com/w40/${item.flag}.png` : null } alt={`${item.label}flag`} className={`${item.flag ? "w-6 h-6 rounded-full" : "hidden" }`}/> 
 
         <span className="flex flex-col ">
         {/* currecny and full name */}
         
-        <span className="text-md">{item.currency}</span>
-        <span className="text-xs">{item.country}</span>
+        <span className={`${item.flag ? "ml-0" : "ml-10" } text-md`}>{item.currency}</span>
+        <span className={`${item.flag ? "ml-0" : "ml-10" } text-xs`}>{item.country}</span>
         </span>
          </span>
 
+          {/* container of rates and star */}
+          <span className="flex flex-row items-center gap-3 p-2">
           <span className="flex flex-col gap-2 items-end p-2">
           <span className="text-md">{item.amount}</span>
-          <span className="text-xs">{item.rate}</span>
-          
+          <span className="text-xs text-gray-400">{item.rate}</span>
+                  
           </span>
-
-
+             <span>
+            <ERButton className={`${isFilled ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10 " }` } onClick={() => handleComparePairs(item.currency)}><img src={`${isFilled ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
+          </span>
+         </span>
+       
 
           </span>
 
       </li>
-        ))}
+        )}
+        )}
       </ul>
       
       </div>
@@ -86,3 +104,33 @@ export default Compare
 //  so the logic for our current conversion is base only for one mean base on the current conversion 
 
 //  now we need to make it dynamicall and called it for all 
+
+
+
+
+
+
+
+// july 21 todo 
+
+
+//  so we are can compare now and star is working now 
+
+// todo 
+
+// if user click any favorite button or star button it will show to favorites and compare button
+
+
+// breaking the task 
+
+// currency converter favorite button 
+
+// first it will show on favorites 
+
+// then next on compare the  star is filled according to currenct conversion 
+
+// so we need to check the current values of currency conveter data was passing through favorites 
+
+//  after we see it now we check if the data is same as data we are passing inside the compare so example if the item.currency checks both the favorite for base country to targetcountry  it will show through favorite.
+
+// for the comparison , we check only  the item.currency is same as we passed through the data of inside the favoriteList if same the star will be filled
