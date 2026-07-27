@@ -3,24 +3,25 @@ import ERButton from "./Button";
 
 const Compare = () => {
 
-const {compareList,baseComparisonValue,amount, handleComparePairs, FavoriteCompareList }=useCurrencyContext();
+const {compareList,favoriteList,baseComparisonValue,amount,handleToggelStarred  }=useCurrencyContext();
 
 
 
 
-console.log(FavoriteCompareList,"favortie compare")
+
 
 return (
  <div>
         <div className="flex flex-col sm:flex-row justify-between">
           <h2 className="text-white mb-2">Multi-Currency:  <span>{amount} FROM<span></span> <span>{baseComparisonValue}</span>  </span></h2>
 
-          <span>{FavoriteCompareList.length} {`${FavoriteCompareList.length > 1 ? "pairs" :"pair"}`} </span>
+          <span>{favoriteList.length} {`${favoriteList.length > 1 ? "pairs" :"pair"}`} </span>
         </div>
 
       <ul className="overflow-x-scroll h-110 flex flex-col gap-3 ">
         {compareList.map((item) =>  {
-        const isFilled = FavoriteCompareList.includes(item.currency)
+      
+        const isFavorite = favoriteList.some(fav => fav.to === item.currency)
         
         return (
         <li key={item.currency} className="text-white border w-full  rounded-xl ">
@@ -45,7 +46,7 @@ return (
                   
           </span>
              <span>
-            <ERButton className={`${isFilled ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10 " }` } onClick={() => handleComparePairs(item.currency)}><img src={`${isFilled ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
+            <ERButton className={`${isFavorite ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10 " }` } onClick={ () =>  handleToggelStarred(item) } ><img src={`${isFavorite ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
           </span>
          </span>
        
@@ -134,3 +135,19 @@ export default Compare
 //  after we see it now we check if the data is same as data we are passing inside the compare so example if the item.currency checks both the favorite for base country to targetcountry  it will show through favorite.
 
 // for the comparison , we check only  the item.currency is same as we passed through the data of inside the favoriteList if same the star will be filled
+
+
+
+
+// steps :
+
+
+
+
+// we successfull compare the favorite and currencychecker 
+
+// every favorited currency we clicked we checked inside the favoritList if same as the comparelist the isFavoritestar will show means it shows same value 
+
+//  now the problem if we clickde favoritebutton in currency checker  we can remove 
+
+//  but when we are clicking inside the compare list it doesnt remove 

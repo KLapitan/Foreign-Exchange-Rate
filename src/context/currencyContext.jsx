@@ -281,8 +281,8 @@ console.log(favoriteList)
 // list of all rates for shown in the compare area
 const [compareList,setCompareList]=useState([]);
 
-// state to track the pairs only
-const [FavoriteCompareList,setFavoriteCompareList]=useState([])
+// // state to track the pairs only
+// const [FavoriteCompareList,setFavoriteCompareList]=useState([])
 
 const baseComparisonValue = fromSelectedCurrency.value;
 
@@ -311,57 +311,76 @@ const handleTools = (e) => {
 setTools(e.target.value)
 }
 
-const handleFavorite =() => {
+const handleToggleFavorite =(currency) => {
+
+setFavoriteList((prev) => {
+
+//check if favorite is list or not
+  const existItem = prev.some(fav => fav.to === currency.to )
+
+  if(existItem){
+  // remove favorite
+    return prev?.filter(fav => fav?.to !== currency.to)
+
+  }
+
+
+
+// value of currency check that passed to FavoriteList
 const saveCurrentCurrency = {
   id:crypto.randomUUID(),
   fromFlag:fromSelectedCurrency.flag,
   from:fromSelectedCurrency.value,
-  to:toSelectedCurrency.value,
+  to:currency.to,
   toFlag:toSelectedCurrency.flag,
   amount,
   convertedAmount,
   rate: singleRateCurrency.rate,
  }
 
-setFavoriteList((prev) => [...prev,saveCurrentCurrency])
+console.log(saveCurrentCurrency, "FOR COMAPARE AND FAVORITE LIST")
+
+
+
+
+ return [...prev, saveCurrentCurrency] 
+})
+
+
+// in compare list we need to check that favorited one
+
+// const matchItem = compareList.some((currency) => currency.currency ===saveCurrentCurrency.to)
+
+
+
+
+
 
 setFavoriteContent(true)
-
-// const saveComparisonValue = {
-//   id:crypto.randomUUID(),
-//   to:toSelectedCurrency.value,
-//   convertedAmount,
-
-// }
-
-//   setCompareResults((prev) => [...prev, saveComparisonValue])
 
 }
 
 
+const handleToggelStarred = (currency) => {
+setFavoriteList((prev) => {
+
+const  itemExistedStar= prev.some(fav => fav.to === currency)
+
+if(itemExistedStar) {
+return prev.filter(fav => fav.to !== currency)
+}
+
+
+return [...prev, itemExistedStar]
+
+})
+
+}
+
 // star compared list and show length inside compare list
 
-  const handleComparePairs = (currency) => {
-  
-  setFavoriteCompareList((prev) =>  {
-  return prev.includes(currency)
-     ? prev.filter((item) => item !== currency)
-    : [...prev, currency]
-  
 
 
-  });
-  setFavoriteList((prev) =>  {
-  return prev.includes(currency)
-     ? prev.filter((item) => item !== currency)
-    : [...prev, currency]
-  
-
-
-  });
-  
-  
-  }
 
 
 // useeEFfects (fetching LiveRates , singlerates , conversion)
@@ -589,11 +608,10 @@ amount:comparisonAmount.toLocaleString("en-US" , {
       maximumFractionDigits: 2,
     }),
 }
-} 
-);
+});
 
 
-
+console.log(comparsionRates , "FOR COMPARED FAVORITE")
 
 setCompareList(comparsionRates)
 }catch (err) {
@@ -611,7 +629,7 @@ loadCompareRates();
 console.log(favoriteList, "loggin when star is filled")
 
 return (
-<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,FavoriteCompareList,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput ,handleSwitchExchange,handleTools,handleFavorite,setSelectedRanged,setTools,handleComparePairs
+<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput ,handleToggelStarred ,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
 }}>
 
 {children}
