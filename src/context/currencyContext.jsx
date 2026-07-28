@@ -316,7 +316,7 @@ const handleToggleFavorite =(currency) => {
 setFavoriteList((prev) => {
 
 //check if favorite is list or not
-  const existItem = prev.some(fav => fav.to === currency.to )
+  const existItem = prev.some(fav => fav.to === currency.to && fav.toFlag === currency.toFlag && fav.rate === currency.rate )
 
   if(existItem){
   // remove favorite
@@ -332,10 +332,10 @@ const saveCurrentCurrency = {
   fromFlag:fromSelectedCurrency.flag,
   from:fromSelectedCurrency.value,
   to:currency.to,
-  toFlag:toSelectedCurrency.flag,
+  toFlag:currency.toFlag,
   amount,
   convertedAmount,
-  rate: singleRateCurrency.rate,
+  rate:currency.rate,
  }
 
 console.log(saveCurrentCurrency, "FOR COMAPARE AND FAVORITE LIST")
@@ -360,22 +360,22 @@ setFavoriteContent(true)
 
 }
 
+console.table(favoriteList, "table for favorite")
+// const handleToggelStarred = (currency) => {
+// setFavoriteList((prev) => {
 
-const handleToggelStarred = (currency) => {
-setFavoriteList((prev) => {
+// const  itemExistedStar= prev.some(fav => fav.to === currency)
 
-const  itemExistedStar= prev.some(fav => fav.to === currency)
-
-if(itemExistedStar) {
-return prev.filter(fav => fav.to !== currency)
-}
+// if(itemExistedStar) {
+// return prev.filter(fav => fav.to !== currency)
+// }
 
 
-return [...prev, itemExistedStar]
+// return [...prev, itemExistedStar]
 
-})
+// })
 
-}
+// }
 
 // star compared list and show length inside compare list
 
@@ -629,7 +629,7 @@ loadCompareRates();
 console.log(favoriteList, "loggin when star is filled")
 
 return (
-<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput ,handleToggelStarred ,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
+<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
 }}>
 
 {children}
