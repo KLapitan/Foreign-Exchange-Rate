@@ -7,6 +7,10 @@ import { useContext } from "react";
 import convert from "../components/currency-conversion";
 
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+
  const CurrencyContext = createContext(null)
 
 const countriesCurrency = [
@@ -248,11 +252,24 @@ const [tools,setTools]=useState("history")
 
 // state for favorites
 // why array ? becausew we want to the valueos of slected currecy and show it in ui
-const [favoriteList,setFavoriteList]=useState([])
+// we set the farvorite array in sessionstorage
+// why trycatch ? becasue we have error of [object,object ] meaning invalid json we getting
 
+const [favoriteList,setFavoriteList]=useState(() => {
 
-// if nothing yet saved
-const [favoriteContent,setFavoriteContent]=useState(false)
+try {
+const storedFavoriteItems = sessionStorage.getItem("FavoriteLogs") 
+return storedFavoriteItems ? JSON.parse(storedFavoriteItems) : [];
+
+}catch (err){
+console.error('Error in displaying list ',err)
+
+sessionStorage.removeItem("FavoriteLogs");
+
+return [];
+}
+})
+
 
 // compare 
 // const [compareResults,setCompareResults]=useState([])
@@ -281,12 +298,17 @@ console.log(favoriteList)
 // list of all rates for shown in the compare area
 const [compareList,setCompareList]=useState([]);
 
-// // state to track the pairs only
-// const [FavoriteCompareList,setFavoriteCompareList]=useState([])
 
 const baseComparisonValue = fromSelectedCurrency.value;
 
 
+// log Conversion
+
+const [logList,setLogList]=useState(() => {
+const storedLogItems = sessionStorage.getItem("LogItems");
+return storedLogItems ? JSON.parse(storedLogItems) : [];
+
+})
 
 
 
@@ -316,15 +338,18 @@ const handleToggleFavorite =(currency) => {
 setFavoriteList((prev) => {
 
 //check if favorite is list or not
-  const existItem = prev.some(fav => fav.to === currency.to && fav.toFlag === currency.toFlag && fav.rate === currency.rate )
+  const existItem = prev.some(fav => fav.to === currency.to && fav.toFlag === currency.toFlag )
 
   if(existItem){
   // remove favorite
-    return prev?.filter(fav => fav?.to !== currency.to)
+    const updatedFavoriteItem = prev?.filter(fav => fav?.to !== currency.to)
 
+
+// if the user update the favorite list we save also inthe sessionstorage
+sessionStorage.setItem("FavoriteLogs" , JSON.stringify(updatedFavoriteItem))
+
+  return updatedFavoriteItem;
   }
-
-
 
 // value of currency check that passed to FavoriteList
 const saveCurrentCurrency = {
@@ -341,9 +366,12 @@ const saveCurrentCurrency = {
 console.log(saveCurrentCurrency, "FOR COMAPARE AND FAVORITE LIST")
 
 
+const favoriteLogItems = [...prev, saveCurrentCurrency] ;
 
 
- return [...prev, saveCurrentCurrency] 
+sessionStorage.setItem("FavoriteLogs", JSON.stringify(favoriteLogItems));
+
+ return favoriteLogItems;
 })
 
 
@@ -356,31 +384,70 @@ console.log(saveCurrentCurrency, "FOR COMAPARE AND FAVORITE LIST")
 
 
 
-setFavoriteContent(true)
+
 
 }
 
 console.table(favoriteList, "table for favorite")
-// const handleToggelStarred = (currency) => {
-// setFavoriteList((prev) => {
-
-// const  itemExistedStar= prev.some(fav => fav.to === currency)
-
-// if(itemExistedStar) {
-// return prev.filter(fav => fav.to !== currency)
-// }
 
 
-// return [...prev, itemExistedStar]
+// format the date via relative time using dayjs
+dayjs.extend(relativeTime);
 
-// })
+const formatLogRelativeTime = (date)=> {
+//  if date is less than a week 
+return dayjs().diff(date, "day") < 7  
+// days
+? dayjs(date).fromNow()
+// month
+:dayjs(date).format("D MMM")
 
-// }
-
-// star compared list and show length inside compare list
+}
 
 
+const handleLoggedConversion = () => {
 
+
+const formattedLogItem = {
+
+id:crypto.randomUUID(),
+loggedAt:new Date().toISOString(),
+fromCurrency:fromSelectedCurrency.value,
+toCurrency:toSelectedCurrency.value,
+rate:singleRateCurrency.rate,
+amount,
+convertedAmount,
+}
+
+setLogList((prev) => {
+const updatedLogItems = [...prev, formattedLogItem]
+
+
+sessionStorage.setItem("LogItems", JSON.stringify(updatedLogItems))
+
+return updatedLogItems
+}
+
+
+)
+
+
+}
+
+
+const handleDeleteLogItem = (logItem) => {
+setLogList((prev) => {
+return prev.filter((log) => log.toCurrency !== logItem.toCurrency)
+
+
+})
+
+
+}
+
+
+
+console.log(logList, "items for log conversion")
 
 
 // useeEFfects (fetching LiveRates , singlerates , conversion)
@@ -629,7 +696,7 @@ loadCompareRates();
 console.log(favoriteList, "loggin when star is filled")
 
 return (
-<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,favoriteContent,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
+<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,logList,handleDeleteLogItem,formatLogRelativeTime,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput,handleLoggedConversion,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
 }}>
 
 {children}

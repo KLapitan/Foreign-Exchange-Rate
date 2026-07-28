@@ -3,6 +3,7 @@ import Compare from "./compare-tool"
 import Favorite from "./favorite-tool"
 import History from "./history-tool"
 import ERButton from "./Button"
+import LogConversion from "./Log-Conversion"
 
 const Tools = () => {
 
@@ -68,7 +69,11 @@ return(
       
       }
 
+      {tools === "log"  &&  
+      <LogConversion/>      
+      }
       </div>
+
 
 
 </section>

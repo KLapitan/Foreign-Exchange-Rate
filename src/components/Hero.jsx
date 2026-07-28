@@ -11,7 +11,7 @@ import { useCurrencyContext } from "../context/currencyContext";
 
 const ERHero = () => {
 
-const {fromSelectedCurrency ,setFromSelectedCurrency,toSelectedCurrency,setToSelectedCurrency,options,singleRateCurrency,  convertedAmount, isFavorite,handleSwitchExchange ,handleToggleFavorite}=useCurrencyContext();
+const {fromSelectedCurrency, setFromSelectedCurrency,toSelectedCurrency,setToSelectedCurrency,options,singleRateCurrency,  convertedAmount, isFavorite,handleSwitchExchange ,handleToggleFavorite,handleLoggedConversion}=useCurrencyContext();
 
 
 
@@ -85,7 +85,7 @@ return(
                   {/*favorite log conversion  */}
                   <div className="font-JetBrains-Mono flex flex-row gap-2 items-center justify-center">
                   <button className="bg-PrimaryNeon text-black text-xs px-3 py-2  font-bold flex flex-row items-center justify-center gap-1 rounded-md hover:bg-PrimaryNeon/80 cursor-pointer" onClick={() => handleToggleFavorite({to:toSelectedCurrency.value , toFlag:toSelectedCurrency.flag, rate:singleRateCurrency.rate})}><img src="/images/icon-star-black.svg" className="w-4 h-4" />{isFavorite ? "FAVORITED" :"FAVORITE"}</button>
-                  <button className="border border-PrimaryNeon text-center text-white px-2 text-xs py-2 rounded-md active:bg-PrimaryNeon active:text-black font-semibold cursor-pointer tracking-normal">LOG CONVERSION</button>
+                  <button className="border border-PrimaryNeon text-center text-white px-2 text-xs py-2 rounded-md active:bg-PrimaryNeon active:text-black font-semibold cursor-pointer tracking-normal" onClick={handleLoggedConversion}>LOG CONVERSION</button>
                   
                   </div>
          </div>

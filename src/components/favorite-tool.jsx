@@ -2,7 +2,9 @@ import { useCurrencyContext } from "../context/currencyContext"
 
 const Favorite = () => {
 
-const {favoriteList , favoriteContent}=useCurrencyContext();
+const {favoriteList}=useCurrencyContext();
+
+const favoriteContent = favoriteList.length > 0 ? true :false
 return(
 
       <div className={`border h-auto  border-white p-2 ${favoriteContent ? "h-auto" : "h-80"}`}>

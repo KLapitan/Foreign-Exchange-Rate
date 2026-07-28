@@ -151,3 +151,7 @@ export default Compare
 //  now the problem if we clickde favoritebutton in currency checker  we can remove 
 
 //  but when we are clicking inside the compare list it doesnt remove 
+
+
+// july 28, were done in compare ui 
+// so we can added favorite via button or when click on the star , so we passed the object values through handleTOggleFavorite so when we clickde it will take its value wetherit came from currency checker or in the compareList
