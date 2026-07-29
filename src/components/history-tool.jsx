@@ -1,22 +1,42 @@
 import { AreaChart,XAxis,Tooltip,ResponsiveContainer ,CartesianGrid, YAxis, Area} from "recharts"
 import { useCurrencyContext } from "../context/currencyContext"
-
+import { formatInTimeZone } from "date-fns-tz";
 const History = () => {
 
 
-const {currencyGraphData ,selectedRanged ,setSelectedRanged} =useCurrencyContext();
-
+const {fromSelectedCurrency,toSelectedCurrency,currencyGraphData ,selectedRanged ,setSelectedRanged} =useCurrencyContext();
 
 let openRate =currencyGraphData.length > 0 ? currencyGraphData[0].rate : null
-
 let lastRate = currencyGraphData.length > 0 ? currencyGraphData[currencyGraphData.length - 1].rate : null
-
 let change =(lastRate - openRate)
-
-
 let  formatChange = change >= 0  ?  `+${change.toFixed(5)}` :change.toFixed(5)
-
 let percentChange = ((change / openRate) * 100).toFixed(4)
+const fromCurrencyValue = fromSelectedCurrency.value
+const toCurrencyValue = toSelectedCurrency.value
+
+
+const date = new Date();
+
+// // to get the format JULY 29 16:34 GMT + 8
+// const formattedGraphDate = new Intl.DateTimeFormat("en-US" , {
+// month:"short",
+// day: 'numeric',
+// hour:"2-digit",
+// minute:"2-digit",
+// hour12:false,
+//  timeZone:"Asia/Manila",
+//  timeZoneName:"short"
+
+// })
+
+// const formattedDate = formattedGraphDate.format(date).toUpperCase();
+
+// we want JULY 29 16:46 PHT not GMTC SO we isntall a package dfn-tnz timezeone to fully control we just try more libraries package on date
+const formattedDate = formatInTimeZone(
+date,
+"Asia/Manila",
+"MMM dd HH:mm zz"
+).toUpperCase()
 
 return(
 <div className="h-auto">
@@ -53,7 +73,7 @@ return(
   </div>
 
 
-        <div className="flex flex-row max-w-xs gap-3 h-10  lg:gap-8 border bg-BlackSR w-auto  p-2 rounded-md " >
+        <div className="flex flex-row max-w-xs gap-3 h-10  lg:gap-8  bg-BlackSR w-auto  p-2 rounded-md " >
         {/*  1d 1week 1month 1year */}
           <button className={`w-10  lg:w-8 ${selectedRanged === "1D" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("1D")}>1D</button>
           <button className={`w-10 lg:w-8 ${selectedRanged === "1W" ? "text-white" :"text-gray-400"}`} onClick={() => setSelectedRanged("1W")}>1W</button>
@@ -73,10 +93,21 @@ return(
 
     <div className="  max-w-5xl w-full  p-1 ">
           {/* graph  */}
-      <div className="bg-BlackLight rounded-lg">
-      <span></span>
-        <ResponsiveContainer width="100%" height={300}>
+      <div className="bg-BlackLight rounded-xl h-auto w-auto sm:p-2">
+          {/* graph title  */}
+        <div className=" flex flex-col  sm:flex-row justify-between items-center  w-full py-4 px-2 ">
+          <span className="text-white  p-1 sm:ml-3">{fromCurrencyValue}/{toCurrencyValue}</span>
+          <span className="flex  text-xs sm:text-lg w-auto sm:flex-row gap-2 text-gray-400 sm:mr-5 ml-1 ">
+          <span>{lastRate} · </span>
+          <span>{formattedDate} </span>
+          </span>
+        </div>
+
+
+        <ResponsiveContainer width="97%" height={365}>
           <AreaChart data={currencyGraphData}>
+
+          
             <defs>
       <linearGradient id="colorRate" x1="0" y1="0" x2="0" y2="1">
         <stop offset="5%" stopColor="#B8F133" stopOpacity={0.6} />

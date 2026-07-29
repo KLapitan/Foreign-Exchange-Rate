@@ -1,12 +1,8 @@
 import FXInput from "./input"
 import Dropdown from "./dropdown-currency"
 
-
 import Tools from "./tools";
 import { useCurrencyContext } from "../context/currencyContext";
-
-
-
 
 
 const ERHero = () => {
@@ -18,15 +14,18 @@ const isActiveFavorite = favoriteList.some((item) => item.from === fromSelectedC
 console.log(fromSelectedCurrency,"dropdown ui")
 console.log(toSelectedCurrency, "dropdown ui")
 return(
-<main className="h-auto bg-black">
+<main className="h-auto bg-black place-items-center ">
     <section className="h-auto max-w-6xl  w-full p-3 font-JetBrains-Mono border-white border ">
       <h2 className=" text-white font-bold text-lg">CHECK THE RATE</h2>
 
-{/* container for 2 currency change checker */}
-        <div className=" h-auto  flex flex-col gap-5 items-center p-4 bg-BlackLight rounded-2xl border border-amber-600">
+{/* container for 2 currency change checker  and others rate and buttons*/}
+        <div className=" h-auto  flex flex-col max-w-7xl gap-5 items-center p-4 bg-BlackLight rounded-xl border border-amber-600 mb-2">
+
+      {/* conatainer for only send and receive */}
+        <div className="flex flex-col  gap-5 w-full     md:flex md:flex-row md:gap-10 items-center">
 
         {/* send container */}
-          <div className="bg-BlackSR h-30 w-full max-w-lg flex flex-col p-2 rounded-lg border border-green-400  gap-4 ">
+          <div className="bg-BlackSR h-30 w-full max-w-2xl  flex flex-col p-2 rounded-md border border-green-400  gap-4 ">
               <span className="text-white/60 text-lg font-bold ">SEND</span>
 
               <div className="w-auto flex flex-row justify-between">
@@ -41,16 +40,17 @@ return(
           </div>
 
           {/* exchange image- */}
-            <div className="w-20 h-20  ">
-            <button className="w-full  h-full border border-white rounded-md active:border-2 hover:cursor-pointer active: " onClick={handleSwitchExchange}>
-              <img src="/images/icon-exchange-vertical.svg" alt="excange-icon" className="w-30 h-10" />
+            <div className="w-20 h-20 md:w-35 md:h-15  bg-BlackSR  rounded-lg  ">
+            <button className="w-full  h-full  rounded-md active:border-2 hover:cursor-pointer active:border-PrimaryNeon shadow-md   " onClick={handleSwitchExchange}>
+              <img src="/images/icon-exchange-vertical.svg" alt="excange-icon" className="md:hidden w-30 h-10" />
+              <img src="/images/icon-exchange.svg" alt="excange-icon" className="hidden md:block w-30 h-10" />
             </button>
             
             </div>
 
 
           {/* receive */}
-          <div className="bg-BlackSR h-27 w-full max-w-lg p-2 rounded-md border border-white flex flex-col gap-3">
+          <div className="bg-BlackSR h-30 w-full max-w-2xl p-2 rounded-md border border-white flex flex-col gap-3">
               <span className="text-white/60 text-lg font-bold ">RECEIVE</span>
 
               <div className="w-auto flex flex-row justify-between items-center">
@@ -62,12 +62,17 @@ return(
                 <Dropdown  value={toSelectedCurrency} onChange={setToSelectedCurrency} options={options}/>
                
               </div>
+        </div>
           
           </div>
            {/* rate log conversion favorite */}
-          <div className="max-w-full w-full h-25 flex flex-col gap-1">
+          <div className="max-w-full w-full h-auto flex flex-col gap-1">
+    
                      {/* dashed border */}
                <div className="border border-dashed  border-gray-500 w-full  "/>
+
+            {/* singlearate container and 2 buttons  */}
+          <div className="sm:flex flex-row justify-between p-2">
 
                   {/* rate  */}
                   <div className="flex flex-col items-center justify-center border  ">
@@ -88,6 +93,9 @@ return(
                   <button className="border border-PrimaryNeon text-center text-white px-2 text-xs py-2 rounded-md active:bg-PrimaryNeon active:text-black font-semibold cursor-pointer tracking-normal" onClick={handleLoggedConversion}>LOG CONVERSION</button>
                   
                   </div>
+
+            </div>
+
          </div>
 
 

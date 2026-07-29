@@ -11,11 +11,15 @@ const {compareList,favoriteList,baseComparisonValue,amount,handleToggleFavorite 
 
 
 return (
- <div>
-        <div className="flex flex-col sm:flex-row justify-between">
-          <h2 className="text-white mb-2">Multi-Currency:  <span>{amount} FROM<span></span> <span>{baseComparisonValue}</span>  </span></h2>
-
-          <span>{favoriteList.length} {`${favoriteList.length > 1 ? "pairs" :"pair"}`} </span>
+ <div className="font-JetBrains-Mono">
+        <div className="flex flex-col sm:flex-row justify-between border border-green-500 mb-2 h-auto">
+        
+          <span className="flex flex-row gap-1 text-gray-400 text-md  sm:text-md items-center ">Multi-Currency:
+              <span className="text-white text-sm sm:text-xl">{amount}</span>
+              <span className="text-white text-sm sm:text-xl">FROM</span>
+              <span className="border border-green-400 text-white text-sm md:text-xl">{baseComparisonValue}</span> 
+             </span>
+          <span className=" w-40 text-left sm:text-right">{favoriteList.length} {`${favoriteList.length > 1 ? "pairs" :"pair"}`} </span>
         </div>
 
       <ul className="overflow-x-scroll h-110 flex flex-col gap-3 ">
