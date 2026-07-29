@@ -50,7 +50,7 @@ return (
                   
           </span>
              <span>
-            <ERButton className={`${isFavorite ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10 " }` } onClick={ () => handleToggleFavorite({to:item.currency , toFlag:item.flag}) } ><img src={`${isFavorite ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
+            <ERButton className={`${isFavorite ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10 " }` } onClick={ () => handleToggleFavorite({to:item.currency , toFlag:item.flag,rate:item.rate}) } ><img src={`${isFavorite ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
           </span>
          </span>
        
