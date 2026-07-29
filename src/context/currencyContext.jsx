@@ -279,7 +279,9 @@ return [];
 const duplicateRates = isChangeRates.length ? [...isChangeRates, ...isChangeRates] : [];
 
 // we change from  checking by flag to finding it inside the array so it will accurate in displaying
-const isFavorite = favoriteList.some((item) => item.from === fromSelectedCurrency.value && item.to === toSelectedCurrency.value)
+
+// WE PUT IT INISDE THE CHECKERS SO IF THE CURRENCT CURRENCY CHECKES IS IN FAVORITE BUTTON COLLORRD
+// const isFavorite = favoriteList.some((item) => item.from === fromSelectedCurrency.value && item.to === toSelectedCurrency.value)
 
 
 // base currency that will be compared to
@@ -696,7 +698,7 @@ loadCompareRates();
 console.log(favoriteList, "loggin when star is filled")
 
 return (
-<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,isFavorite,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,logList,handleDeleteLogItem,formatLogRelativeTime,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput,handleLoggedConversion,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
+<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,logList,handleDeleteLogItem,formatLogRelativeTime,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput,handleLoggedConversion,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
 }}>
 
 {children}

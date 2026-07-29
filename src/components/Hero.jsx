@@ -11,9 +11,9 @@ import { useCurrencyContext } from "../context/currencyContext";
 
 const ERHero = () => {
 
-const {fromSelectedCurrency, setFromSelectedCurrency,toSelectedCurrency,setToSelectedCurrency,options,singleRateCurrency,  convertedAmount, isFavorite,handleSwitchExchange ,handleToggleFavorite,handleLoggedConversion}=useCurrencyContext();
+const {fromSelectedCurrency, setFromSelectedCurrency,toSelectedCurrency,setToSelectedCurrency,options,singleRateCurrency,  convertedAmount,favoriteList ,handleSwitchExchange ,handleToggleFavorite,handleLoggedConversion}=useCurrencyContext();
 
-
+const isActiveFavorite = favoriteList.some((item) => item.from === fromSelectedCurrency.value && item.to === toSelectedCurrency.value)
 
 console.log(fromSelectedCurrency,"dropdown ui")
 console.log(toSelectedCurrency, "dropdown ui")
@@ -84,7 +84,7 @@ return(
 
                   {/*favorite log conversion  */}
                   <div className="font-JetBrains-Mono flex flex-row gap-2 items-center justify-center">
-                  <button className="bg-PrimaryNeon text-black text-xs px-3 py-2  font-bold flex flex-row items-center justify-center gap-1 rounded-md hover:bg-PrimaryNeon/80 cursor-pointer" onClick={() => handleToggleFavorite({to:toSelectedCurrency.value , toFlag:toSelectedCurrency.flag, rate:singleRateCurrency.rate})}><img src="/images/icon-star-black.svg" className="w-4 h-4" />{isFavorite ? "FAVORITED" :"FAVORITE"}</button>
+                  <button className={` ${isActiveFavorite? "bg-PrimaryNeon text-black px-4 " : " bg-BlackLight text-white border-PrimaryNeon px-5 "}  border text-xs  py-2 font-bold flex flex-row items-center justify-center gap-1 rounded-md hover:bg-PrimaryNeon/80 cursor-pointer`} onClick={() => handleToggleFavorite({to:toSelectedCurrency.value , toFlag:toSelectedCurrency.flag, rate:singleRateCurrency.rate})}><img src={`${isActiveFavorite ? " /images/icon-star-black.svg " :" /images/icon-star.svg " }`} className={`${isActiveFavorite ?  " w-4 h-4 " : " w-3 h-4 mr-1 "}`} />{isActiveFavorite ? "FAVORITED" :"FAVORITE"}</button>
                   <button className="border border-PrimaryNeon text-center text-white px-2 text-xs py-2 rounded-md active:bg-PrimaryNeon active:text-black font-semibold cursor-pointer tracking-normal" onClick={handleLoggedConversion}>LOG CONVERSION</button>
                   
                   </div>
