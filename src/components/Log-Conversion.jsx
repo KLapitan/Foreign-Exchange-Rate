@@ -2,17 +2,21 @@ import { useCurrencyContext } from "../context/currencyContext"
 import ERButton from "./Button";
 const LogConversion = () => {
 const {logList,formatLogRelativeTime, handleDeleteLogItem} = useCurrencyContext();
-const isItemLog = logList.length > 0 ? true : false
+const isItemLog = logList.length > 0 ? true : null
 
 return(
-<section className="h-auto bg-BlackLight">
-{isItemLog ? 
- <ul className="h-auto flex flex-col gap-2 ">
+<section className="h-auto">
+{isItemLog &&
+     <>
+      <h3>LOG</h3>
+
+
+ <ul className="h-auto  flex flex-col gap-2 p-2 bg-BlackLight mt-5">
     {logList.map((item) => (
-      <li key={item.id} className="border border-white h-auto p-2 flex flex-col w-auto rounded-lg">
+      <li key={item.id} className="border border-white h-auto p-2 flex flex-col  w-auto rounded-lg">
 
           {/* date and rate together with border green */}
-      <span className="flex flex-row gap-2 text-xs justify-between border border-green-600">
+      <span className="flex flex-col sm:flex-row gap-2 text-xs justify-between ">
         <span>
         <span>Date: </span>
         <span>{formatLogRelativeTime(item.loggedAt)}</span>
@@ -26,21 +30,21 @@ return(
 
 
         {/* send ,receive ,delete  item container */}
-      <span className="flex flex-row border border-PrimaryNeon p-2 gap-2">
+      <span className="flex flex-row p-2 gap-2">
 
           {/* send and reeive items only */}
-          <span className="flex  flex-1 flex-col md:flex-row gap-2 w-auto items-center justify-center border border-pink-500">
+          <span className="flex  flex-1 flex-col md:flex-row gap-2 w-auto items-center justify-center ">
 
             {/* send ui  text*/}
-            <span className="  flex-col flex  flex-1 border border-red-800"> 
-              <span className="flex-1  flex justify-between">
+            <span className="  flex-col flex  flex-1  w-full"> 
+              <span className="flex-1  flex justify-between ">
               
             <span>SEND </span>
             <span>AMOUNT </span>
               
               </span>
               
-              <span className="flex flex-row justify-between">
+              <span className="flex flex-row justify-between ">
               <span>{item.fromCurrency}</span>
               <span>{item.amount}</span>
               </span>
@@ -48,12 +52,13 @@ return(
             </span>
 
 
-              <span className="w-17  flex place-content-center h-4">
-              <img src="/images/icon-arrow-right.svg"/>
+              <span className="w-17  flex place-content-center h-10  sm:h-4 ">
+              <img src="/images/icon-arrow-right.svg" className="hidden sm:block"/>
+              <img src="/images/icon-arrow-down.svg" className="sm:hidden  "/>
               </span>
 
             {/* recvie ui text */}
-               <span className="  flex-col flex  flex-1 border border-red-500"> 
+               <span className="  flex-col flex  flex-1  w-full "> 
               <span className="flex-1  flex justify-between">
                 <span>RECEIVE </span>
             <span>AMOUNT </span>
@@ -69,28 +74,15 @@ return(
           </span>
 
           
-        <ERButton className="flex  items-center"><img src="/images/icon-delete.svg" alt="delete icon" onClick={() => handleDeleteLogItem({toCurrency:item.toCurrency})}/></ERButton>
+        <ERButton className="flex  items-center justify-center w-10 "><img src="/images/icon-delete.svg" alt="delete icon" onClick={() => handleDeleteLogItem({toCurrency:item.toCurrency})}/></ERButton>
      
-      </span>
-      
-          
-      
-            
-      </li>
-    
-    
-    
-    
-    
-    
-    
-    
+      </span> 
+      </li>    
     ))}
+</ul>
+     </>
 
-
-
-
-</ul> : <h2 className="text-gray-400">NO CONVERSIONS LOGGED YET </h2>}
+ }
 </section>
 
 )

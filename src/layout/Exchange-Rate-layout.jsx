@@ -5,11 +5,11 @@ import ERHero from "../components/Hero"
 
 const Layout =() => {
 return(
-<>
+<div className="bg-black h-screen">
 <ERHeader    />
 <ERHero />
 
-</>
+</div>
 )
 }
 export default Layout

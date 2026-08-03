@@ -91,7 +91,7 @@ return(
 {/*graph-container */}
 
 
-    <div className="  max-w-5xl w-full  p-1 ">
+    <div className="max-w-7xl w-full  p-1   ">
           {/* graph  */}
       <div className="bg-BlackLight rounded-xl h-auto w-auto sm:p-2">
           {/* graph title  */}
@@ -104,7 +104,7 @@ return(
         </div>
 
 
-        <ResponsiveContainer width="97%" height={365}>
+        <ResponsiveContainer width="100%" height={365}>
           <AreaChart data={currencyGraphData}>
 
           

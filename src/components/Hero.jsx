@@ -7,19 +7,19 @@ import { useCurrencyContext } from "../context/currencyContext";
 
 const ERHero = () => {
 
-const {fromSelectedCurrency, setFromSelectedCurrency,toSelectedCurrency,setToSelectedCurrency,options,singleRateCurrency,  convertedAmount,favoriteList ,handleSwitchExchange ,handleToggleFavorite,handleLoggedConversion}=useCurrencyContext();
+const {fromSelectedCurrency,amount, setFromSelectedCurrency,toSelectedCurrency,setToSelectedCurrency,options,singleRateCurrency,  convertedAmount,favoriteList ,handleSwitchExchange ,handleToggleFavorite,handleLoggedConversion}=useCurrencyContext();
 
 const isActiveFavorite = favoriteList.some((item) => item.from === fromSelectedCurrency.value && item.to === toSelectedCurrency.value)
 
 console.log(fromSelectedCurrency,"dropdown ui")
 console.log(toSelectedCurrency, "dropdown ui")
 return(
-<main className="h-auto bg-black place-items-center ">
-    <section className="h-auto max-w-6xl  w-full p-3 font-JetBrains-Mono border-white border ">
+<main className=" h-auto bg-black place-items-center ">
+    <section className="h-auto max-w-6xl  w-full p-4 font-JetBrains-Mono  ">
       <h2 className=" text-white font-bold text-lg">CHECK THE RATE</h2>
 
 {/* container for 2 currency change checker  and others rate and buttons*/}
-        <div className=" h-auto  flex flex-col max-w-7xl gap-5 items-center p-4 bg-BlackLight rounded-xl border border-amber-600 mb-2">
+        <div className=" h-auto  flex flex-col max-w-7xl gap-5 items-center p-4 bg-BlackLight rounded-xl border border-amber-600 mb-10">
 
       {/* conatainer for only send and receive */}
         <div className="flex flex-col  gap-5 w-full     md:flex md:flex-row md:gap-10 items-center">
@@ -54,7 +54,7 @@ return(
               <span className="text-white/60 text-lg font-bold ">RECEIVE</span>
 
               <div className="w-auto flex flex-row justify-between items-center">
-                <span className="text-2xl text-PrimaryNeon font-bold "> {convertedAmount}</span>
+                <span className="text-2xl text-PrimaryNeon font-bold "> {`${Number(amount)? convertedAmount : 0}`}</span>
                 {/* dropdown */}
 
    

@@ -11,51 +11,66 @@ const {compareList,favoriteList,baseComparisonValue,amount,handleToggleFavorite 
 
 
 return (
- <div className="font-JetBrains-Mono">
-        <div className="flex flex-col sm:flex-row justify-between border border-green-500 mb-2 h-auto">
+ <div className="font-JetBrains-Mono bg-BlackLight rounded-xl">
+        <div className="flex flex-col sm:flex-row justify-between   mb-4 h-auto p-2">
         
-          <span className="flex flex-row gap-1 text-gray-400 text-md  sm:text-md items-center ">Multi-Currency:
+          <span className="flex flex-row gap-1 text-gray-400 text-md  sm:text-md items-center sm:p-2  ">Multi-Currency:
               <span className="text-white text-sm sm:text-xl">{amount}</span>
               <span className="text-white text-sm sm:text-xl">FROM</span>
-              <span className="border border-green-400 text-white text-sm md:text-xl">{baseComparisonValue}</span> 
+              <span className=" text-white text-sm sm:text-xl">{baseComparisonValue}</span> 
              </span>
-          <span className=" w-40 text-left sm:text-right">{favoriteList.length} {`${favoriteList.length > 1 ? "pairs" :"pair"}`} </span>
+          <span className=" w-40 text-left sm:p-2 sm:text-right ">{favoriteList.length} {`${favoriteList.length > 1 ? "pairs" :"pair"}`} </span>
         </div>
 
-      <ul className="overflow-x-scroll h-110 flex flex-col gap-3 ">
+      <ul className="overflow-x-scroll h-110 flex flex-col gap-3 p-2 ">
         {compareList.map((item) =>  {
       
         const isFavorite = favoriteList.some(fav => fav.to === item.currency)
         
         return (
-        <li key={item.currency} className="text-white border w-full  rounded-xl ">
-          <span className="w-full   flex flex-row justify-between items-center">
-          <span className="flex flex-row  h-15 w-auto items-center gap-4 p-2">
+        <li key={item.currency} className=" bg-BlackSR border-BlackSR shadow-md text-white  w-full  rounded-xl h-auto border p-2 ">
+          <span className="w-full   flex flex-row  justify-between items-center">
+
+        <span className="flex-2">
           {/* flag and name */}    
+          <span className="flex flex-row  h-auto  w-auto items-center gap-2 sm:gap-4 sm:p-2">
         <img  src={item.flag ? `https://flagcdn.com/w40/${item.flag}.png` : null } alt={`${item.label}flag`} className={`${item.flag ? "w-6 h-6 rounded-full" : "hidden" }`}/> 
 
-        <span className="flex flex-col ">
         {/* currecny and full name */}
+        <span className="flex flex-col ">
         
-        <span className={`${item.flag ? "ml-0" : "ml-10" } text-md`}>{item.currency}</span>
-        <span className={`${item.flag ? "ml-0" : "ml-10" } text-xs`}>{item.country}</span>
+        <span className={`${item.flag ? "ml-0" : "ml-10" } text-md sm:text-lg w-auto`}>{item.currency}</span>
+        <span className={`${item.flag ? "ml-0" : "ml-10" } text-[8px] tracking-tightest sm:text-lg     text-gray-400`} >{item.country}</span>
         </span>
+         
+         {/* end of container of redborder */}
          </span>
 
+          </span>
+
+
+
+<span className="flex">
           {/* container of rates and star */}
-          <span className="flex flex-row items-center gap-3 p-2">
+          <span className="flex flex-row items-center gap-3 sm:p-2  w-auto">
           <span className="flex flex-col gap-2 items-end p-2">
-          <span className="text-md">{item.amount}</span>
-          <span className="text-xs text-gray-400">{item.rate}</span>
+          <span className="text-sm sm:text-md ">{item.amount}</span>
+          <span className="text-xs sm:text-md text-gray-400 ">{item.rate}</span>
                   
           </span>
              <span>
-            <ERButton className={`${isFavorite ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10 " }` } onClick={ () => handleToggleFavorite({to:item.currency , toFlag:item.flag,rate:item.rate}) } ><img src={`${isFavorite ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
+            <ERButton className={` ${isFavorite ? " border w-7 h-7  border-PrimaryNeon rounded-sm" : " w-7 h-7 " } sm:w-10 sm:h-10` } onClick={ () => handleToggleFavorite({to:item.currency , toFlag:item.flag,rate:item.rate}) } ><img src={`${isFavorite ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
           </span>
          </span>
+</span>
        
 
-          </span>
+        
+        
+        
+          {/* end of container pink border   */}
+          </span> 
+          
 
       </li>
         )}

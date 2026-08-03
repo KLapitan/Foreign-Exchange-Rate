@@ -222,6 +222,12 @@ const options = countriesCurrency.map((country)=> ({
 }))
 
 
+const errorMessages = {
+  history: "No chart data available",
+  compare: "No comparison available",
+  favorites: "No pinned pairs yet",
+  log: "No conversions logged yet",
+};
 
 const CurrencyProvider  = ({children}) => {
 
@@ -242,7 +248,7 @@ const [toSelectedCurrency ,setToSelectedCurrency]=useState(options.find((option)
 const [singleRateCurrency,setSingleRateCurrency]=useState({})
 
 // input 
-const [amount,setAmount]=useState(1000)
+const [amount,setAmount]=useState("")
 const [convertedAmount,setConvertedAmount]=useState('')
 
 
@@ -311,6 +317,7 @@ const storedLogItems = sessionStorage.getItem("LogItems");
 return storedLogItems ? JSON.parse(storedLogItems) : [];
 
 })
+
 
 
 
@@ -409,7 +416,10 @@ return dayjs().diff(date, "day") < 7
 
 const handleLoggedConversion = () => {
 
+if(amount === "" || amount === 0){
 
+return alert("Enter a value first")
+} 
 const formattedLogItem = {
 
 id:crypto.randomUUID(),
@@ -698,7 +708,7 @@ loadCompareRates();
 console.log(favoriteList, "loggin when star is filled")
 
 return (
-<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,logList,handleDeleteLogItem,formatLogRelativeTime,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput,handleLoggedConversion,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
+<CurrencyContext.Provider value={{liveRates , duplicateRates , fromSelectedCurrency,toSelectedCurrency ,options,amount , compareList,convertedAmount,singleRateCurrency,tools,baseComparisonValue ,favoriteList,currencyGraphData,selectedRanged,logList,handleDeleteLogItem,formatLogRelativeTime,errorMessages,setFromSelectedCurrency, setToSelectedCurrency, handleAmountInput,handleLoggedConversion,handleSwitchExchange,handleTools,handleToggleFavorite,setSelectedRanged,setTools,
 }}>
 
 {children}
