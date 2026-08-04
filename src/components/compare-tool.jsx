@@ -22,7 +22,7 @@ return (
           <span className=" w-40 text-left sm:p-2 sm:text-right ">{favoriteList.length} {`${favoriteList.length > 1 ? "pairs" :"pair"}`} </span>
         </div>
 
-      <ul className="overflow-x-scroll h-110 flex flex-col gap-3 p-2 ">
+      <ul className="overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent h-110 flex flex-col gap-3 p-2 ">
         {compareList.map((item) =>  {
       
         const isFavorite = favoriteList.some(fav => fav.to === item.currency)
@@ -59,7 +59,7 @@ return (
                   
           </span>
              <span>
-            <ERButton className={` ${isFavorite ? " border w-7 h-7  border-PrimaryNeon rounded-sm" : " w-7 h-7 " } sm:w-10 sm:h-10` } onClick={ () => handleToggleFavorite({to:item.currency , toFlag:item.flag,rate:item.rate}) } ><img src={`${isFavorite ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
+            <ERButton className={` ${isFavorite ? " border w-7 h-7  border-PrimaryNeon rounded-sm" : " w-7 h-7 " } sm:w-10 sm:h-10 cursor-pointer` } onClick={ () => handleToggleFavorite({to:item.currency , toFlag:item.flag,rate:item.rate}) } ><img src={`${isFavorite ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`} className="place-self-center"/></ERButton>
           </span>
          </span>
 </span>

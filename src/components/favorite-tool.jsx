@@ -34,7 +34,7 @@ return(
 
           {/* button */}
           <span>
-            <ERButton className={`${isfilled ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10  " } flex  items-center justify-center ` } onClick={ () => handleToggleFavorite({to:item.to , toFlag:item.toFlag}) } ><img src={`${isfilled ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`}/></ERButton>
+            <ERButton className={`${isfilled ? "border w-10 h-10 border-PrimaryNeon rounded-sm" : "w-10 h-10  " } flex  items-center justify-center cursor-pointer` } onClick={ () => handleToggleFavorite({to:item.to , toFlag:item.toFlag}) } ><img src={`${isfilled ? "./images/icon-star-filled.svg"  :"./images/icon-star.svg"}`}/></ERButton>
           </span>
           </li>
         )}
