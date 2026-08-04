@@ -11,9 +11,9 @@ return(
       <h3>LOG</h3>
 
 
- <ul className="h-auto  flex flex-col gap-2 p-2 bg-BlackLight mt-5">
+ <ul className="h-auto  flex flex-col gap-5 p-4 bg-BlackLight mt-5 rounded-lg">
     {logList.map((item) => (
-      <li key={item.id} className="border border-white h-auto p-2 flex flex-col  w-auto rounded-lg">
+      <li key={item.id} className=" h-auto p-2 flex flex-col  w-auto rounded-lg">
 
           {/* date and rate together with border green */}
       <span className="flex flex-col sm:flex-row gap-2 text-xs justify-between ">

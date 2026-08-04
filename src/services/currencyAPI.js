@@ -2,17 +2,27 @@
 
 import axios from "axios";
 
+
+
 // base was USD
-  const base = import.meta.env.VITE_FXCHECKER_BASE
+ const base = import.meta.env.VITE_FXCHECKER_BASE
+
+
   const baseURL = import.meta.env.VITE_FXCHECKER_API
 
 const singleRateURL = import.meta.env.VITE_SINGLERATECHECKER_API;
 
 console.log(baseURL ,"in api ui")
 
-export const fetchLiveMarket = async () => {
+export const fetchLiveMarket = async ({base ,quotes}) => {
 
-return  axios.get(baseURL , { params: {base }});
+return  axios.get(baseURL , 
+{
+ params: {
+ 
+ base:base , quotes: quotes.join(",")}})
+
+// return axios.get(formattedTodaysRate)
 }
 
 
@@ -22,7 +32,7 @@ return axios.get(baseURL, {params : { base: rateBase }})
 
 }
 
-export const fetchYesterdayRates = async () => {
+export const fetchYesterdayRates = async ({base,quotes}) => {
 // get todays day monday june 22 
   const yesterday = new Date(); 
 
@@ -33,9 +43,12 @@ export const fetchYesterdayRates = async () => {
   // Format: YYYY-MM-DD
    const dateStr = yesterday.toISOString().split('T')[0]
 
-     //  weget historical endpoint for USD in yesterday ddate  
+     //  weget historical endpoint for USD in yesterday ddate
+
+
+
 return axios.get(baseURL , {
-  params :{base , date:dateStr}
+  params :{base:base , date:dateStr, quotes: quotes.join(",")}
   })
 
 }

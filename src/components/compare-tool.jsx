@@ -15,7 +15,7 @@ return (
         <div className="flex flex-col sm:flex-row justify-between   mb-4 h-auto p-2">
         
           <span className="flex flex-row gap-1 text-gray-400 text-md  sm:text-md items-center sm:p-2  ">Multi-Currency:
-              <span className="text-white text-sm sm:text-xl">{amount}</span>
+              <span className="text-white text-sm sm:text-xl ">{amount}</span>
               <span className="text-white text-sm sm:text-xl">FROM</span>
               <span className=" text-white text-sm sm:text-xl">{baseComparisonValue}</span> 
              </span>
@@ -54,8 +54,8 @@ return (
           {/* container of rates and star */}
           <span className="flex flex-row items-center gap-3 sm:p-2  w-auto">
           <span className="flex flex-col gap-2 items-end p-2">
-          <span className="text-sm sm:text-md ">{item.amount}</span>
-          <span className="text-xs sm:text-md text-gray-400 ">{item.rate}</span>
+          <span className="text-xs sm:text-lg 2xl:text-xl">{item.amount}</span>
+          <span className="text-xs sm:text-md text-gray-400 2xl:text-xl">{item.rate}</span>
                   
           </span>
              <span>

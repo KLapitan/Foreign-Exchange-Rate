@@ -14,18 +14,18 @@ const isActiveFavorite = favoriteList.some((item) => item.from === fromSelectedC
 console.log(fromSelectedCurrency,"dropdown ui")
 console.log(toSelectedCurrency, "dropdown ui")
 return(
-<main className=" h-auto bg-black place-items-center ">
+<main className=" h-auto w-full bg-black flex items-center justify-center ">
     <section className="h-auto max-w-6xl  w-full p-4 font-JetBrains-Mono  ">
       <h2 className=" text-white font-bold text-lg">CHECK THE RATE</h2>
 
 {/* container for 2 currency change checker  and others rate and buttons*/}
-        <div className=" h-auto  flex flex-col max-w-7xl gap-5 items-center p-4 bg-BlackLight rounded-xl border border-amber-600 mb-10">
+        <div className=" h-auto  flex flex-col max-w-7xl gap-5 items-center p-4 bg-BlackLight rounded-xl  mb-10">
 
       {/* conatainer for only send and receive */}
         <div className="flex flex-col  gap-5 w-full     md:flex md:flex-row md:gap-10 items-center">
 
         {/* send container */}
-          <div className="bg-BlackSR h-30 w-full max-w-2xl  flex flex-col p-2 rounded-md border border-green-400  gap-4 ">
+          <div className="bg-BlackSR h-30 w-full max-w-2xl  flex flex-col p-2 rounded-md   gap-4 ">
               <span className="text-white/60 text-lg font-bold ">SEND</span>
 
               <div className="w-auto flex flex-row justify-between">
@@ -50,7 +50,7 @@ return(
 
 
           {/* receive */}
-          <div className="bg-BlackSR h-30 w-full max-w-2xl p-2 rounded-md border border-white flex flex-col gap-3">
+          <div className="bg-BlackSR h-30 w-full max-w-2xl p-2 rounded-md flex flex-col gap-3">
               <span className="text-white/60 text-lg font-bold ">RECEIVE</span>
 
               <div className="w-auto flex flex-row justify-between items-center">
@@ -75,7 +75,7 @@ return(
           <div className="sm:flex flex-row justify-between p-2">
 
                   {/* rate  */}
-                  <div className="flex flex-col items-center justify-center border  ">
+                  <div className="flex flex-col items-center justify-center   ">
                     <span className="flex flex-row gap-2 text-white font-JetBrains-Mono text-xs h-10 items-center">
                     <span> 1 {" "}
                     {singleRateCurrency.base} =

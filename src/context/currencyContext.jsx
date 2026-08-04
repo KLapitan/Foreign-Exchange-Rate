@@ -222,6 +222,70 @@ const options = countriesCurrency.map((country)=> ({
 }))
 
 
+
+const popularExchangeCurrency = [
+  {
+    base: "USD",
+    quotes: [
+      "EUR",
+      "GBP",
+      "JPY",
+      "AUD",
+      "CAD",
+      "CHF",
+      "CNY",
+      "HKD",
+      "SGD",
+      "NZD",
+      "INR",
+      "KRW",
+      "THB",
+      "PHP",
+      "MYR",
+      "IDR",
+      "AED",
+      "SAR",
+      "BRL",
+      "MXN"
+    ]
+  },
+  {
+    base: "EUR",
+    quotes: [
+      "USD",
+      "GBP",
+      "JPY",
+      "CHF",
+      "AUD",
+      "CAD"
+    ]
+  },
+  {
+    base: "GBP",
+    quotes: [
+      "USD",
+      "EUR",
+      "JPY",
+      "AUD",
+      "CAD"
+    ]
+  },
+  {
+    base: "JPY",
+    quotes: [
+      "USD",
+      "EUR",
+      "GBP",
+      "CNY",
+      "KRW"
+    ]
+  }
+];
+
+
+
+
+
 const errorMessages = {
   history: "No chart data available",
   compare: "No comparison available",
@@ -493,87 +557,205 @@ useEffect(() => {
 console.log(convertedAmount )
 
 
-useEffect(()=> {
-// for moving in nav section live market
-  const loadLiveMarkets = async () => {
+// // here is for singele based FEtch for all 
+// useEffect(()=> {
+// // for moving in nav section live market
+//   const loadLiveMarkets = async () => {
 
-  try {
-  const todaysRates = await api.fetchLiveMarket();
-  const yesterdayRates = await api.fetchYesterdayRates();
+//   try {
 
 
-// because it is in array form insteadof accessing them item[0-100] we iterate it and turn into an objects
-  const todaysRes = todaysRates.data.map((item) => {
-      const baseRate=item.base
-      const todaysRate = item.rate;
-      const todaysCurrency = item.quote
+
+
+
+//   const todaysRates = await api.fetchLiveMarket();
+//   const yesterdayRates = await api.fetchYesterdayRates();
+
+
+// // because it is in array form insteadof accessing them item[0-100] we iterate it and turn into an objects
+//   const todaysRes = todaysRates.data.map((item) => {
+//       const baseRate=item.base
+//       const todaysRate = item.rate;
+//       const todaysCurrency = item.quote
       
 
-      return {
-      base:baseRate,
-      currency:todaysCurrency,
-      rate:todaysRate
-      }  
-  });
+//       return {
+//       base:baseRate,
+//       currency:todaysCurrency,
+//       rate:todaysRate
+//       }  
+//   });
 
 
-   // const yesterdayRes = yesterdayRates.data?.rates; v1
-  // check yesterday Rates v2
-    const yesterdayRes = yesterdayRates.data.map((item) => {
-    const baseRate=item.base;
-    const yesterdaysCurrency =item.quote;
-    const yesterdaysRate = item.rate;
-    const yesterdaysDay = item.date;
+//    // const yesterdayRes = yesterdayRates.data?.rates; v1
+//   // check yesterday Rates v2
+//     const yesterdayRes = yesterdayRates.data.map((item) => {
+//     const baseRate=item.base;
+//     const yesterdaysCurrency =item.quote;
+//     const yesterdaysRate = item.rate;
+//     const yesterdaysDay = item.date;
     
 
-    return {
-     base:baseRate,
-     currency:yesterdaysCurrency,
-      date:yesterdaysDay,
-      rate:yesterdaysRate
+//     return {
+//      base:baseRate,
+//      currency:yesterdaysCurrency,
+//       date:yesterdaysDay,
+//       rate:yesterdaysRate
     
-    }})
+//     }})
 
 
-//  merge the currrenct rate and previous rate to see donwtime
-    const mergedRates = todaysRes.map((todayRateItem) => {
-    const yesterdayRateItem =yesterdayRes.find((item) => (item.currency === todayRateItem.currency))
+// //  merge the currrenct rate and previous rate to see donwtime
+//     const mergedRates = todaysRes.map((todayRateItem) => {
+//     const yesterdayRateItem =yesterdayRes.find((item) => (item.currency === todayRateItem.currency))
     
 
-    if(!yesterdayRateItem){
+//     if(!yesterdayRateItem){
     
-    return {
-      base:todayRateItem.base,
-      currency:todayRateItem.currency,
-      rate:todayRateItem.rate,
-      change:null,
-    }
-    }
+//     return {
+//       base:todayRateItem.base,
+//       currency:todayRateItem.currency,
+//       rate:todayRateItem.rate,
+//       change:null,
+//     }
+//     }
 
-  // to see the down if the chagne is up or down
-    const change = ((todayRateItem.rate - yesterdayRateItem.rate) /yesterdayRateItem.rate ) * 100
+//   // to see the down if the chagne is up or down
+//     const change = ((todayRateItem.rate - yesterdayRateItem.rate) /yesterdayRateItem.rate ) * 100
 
-    return {
-      base:todayRateItem.base,
-      currency:todayRateItem.currency,
-      rate:todayRateItem.rate,
-      change:change.toFixed(2),
+//     return {
+//       base:todayRateItem.base,
+//       currency:todayRateItem.currency,
+//       rate:todayRateItem.rate,
+//       change:change.toFixed(2),
     
-    }
+//     }
 
-    })
+//     })
 
-    setIsChangeRates(mergedRates)
-    setLiveRates(todaysRes)
+//     setIsChangeRates(mergedRates)
+//     setLiveRates(todaysRes)
   
-  }catch(err){
-   console.error ("Error fetching" , err)
-  }
+//   }catch(err){
+//    console.error ("Error fetching" , err)
+//   }
+  
+//   }
+//   loadLiveMarkets()
+// },[])
+// console.log(isChangeRates, "for loop")
+
+
+// we need to fetch popular exchange converts
+
+
+useEffect(() => {
+
+    const exhangeLiveMarkets = async () => {
+try{
+
+
+
+// so we are getting multiple exchange rate for popular we use  promise.all so it finish all at same time 
+//  so when we are createing one by one on api fetch -Request USD  → wait → Request EUR → wait → Request GBP 
+// with promiseall. we can fetch and ends in same time
+const todaysRate = (await Promise.all(popularExchangeCurrency.map(async ({base,quotes}) => {
+  const response = await  api.fetchLiveMarket({base , quotes})
+
+  return response.data ?? []
+}
+
+))
+
+).flat();
+
+console.log(todaysRate, "new fetching data for live market2")
+
+const yesterdayRate = ( await Promise.all(popularExchangeCurrency.map(async ({base,quotes}) => {
+const response =  await api.fetchYesterdayRates({base , quotes})
+
+
+      console.log({ base, quotes, response: response.data });
+return response.data ?? []
+}
+))
+
+).flat();
+
+// flat dont work on promise fucntion 
+
+  const todaysRes = todaysRate.map((item) => {
+  return {
+    base:item.base,
+    currency:item.quote,
+    rate:item.rate
+  
+  }})
+  console.log(todaysRes, "data for popular rate today")
+
+   const yesterdayres = yesterdayRate.map((item) => {
+    return {
+    base:item.base,
+    currency:item.quote,
+    rate:item.rate
+  
+  }})
+
+
+
+
+  const mergedTodayNYesterday = todaysRes.map((todayItemRate) => {
+  const yeseterdayRateItem = yesterdayres.find((item) => item.currency === todayItemRate.currency)
+  
+
+// check if the currency is notsame
+  if(!yeseterdayRateItem){
+    return{
+    base:todayItemRate.base,
+    currency:todayItemRate.currency,
+    rate:todayItemRate.rate,
+    change:null
+    
+    }
   
   }
-  loadLiveMarkets()
+
+// ceheck donwtime and uptime
+
+const change =((todayItemRate.rate - yeseterdayRateItem.rate) / yeseterdayRateItem.rate) * 100
+
+return {
+  base:todayItemRate.base,
+  currency:todayItemRate.currency,
+  rate:todayItemRate.rate,
+  change:change.toFixed(2)
+
+}
+}) 
+
+// console.log(mergedTodayNYesterday, "mergedTodaya and yesterday for popular exahnge")
+
+// console.log(yesterdayRate, "yeseterday rates for livemarket 2")
+
+setIsChangeRates(mergedTodayNYesterday)
+setLiveRates(todaysRes)
+
+
+
+}catch (error){
+console.error("Error in fetching rates", error)
+
+
+}
+}
+exhangeLiveMarkets();
+
 },[])
-console.log(isChangeRates, "for loop")
+
+
+
+
+
 
 
 useEffect(() => {

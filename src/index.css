@@ -17,7 +17,7 @@
 
 
 
-  --animate-scroll: scroll 2000s linear infinite;
+  --animate-scroll: scroll 100000ms linear infinite;
 
   /* instead of creating a tailwind.config.js  */
   /* we directly used it here */
@@ -28,7 +28,7 @@
     }
 
     to {
-      transform: translateX(-50%)
+      transform: translateX(-90%)
     }
 
   }
